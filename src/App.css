@@ -1,0 +1,36 @@
+.ant-layout-content {
+  color: #fff;
+  min-height: 80vh;
+}
+
+.ant-layout-header {
+  background: #fff
+}
+
+.ant-layout-footer {
+  background: #fff
+}
+
+.file {
+  width: 60%;
+  display: block;
+  margin: auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.ant-list-bordered {
+  background: #fff;
+}
+
+.calendar{
+  width: 60%;
+  display: block;
+  margin: auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.ant-fullcalendar-fullscreen{
+  background: #fff;
+}
