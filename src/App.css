@@ -34,3 +34,11 @@
 .ant-fullcalendar-fullscreen{
   background: #fff;
 }
+
+.login{
+  width: 60%;
+  display: block;
+  margin: auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}

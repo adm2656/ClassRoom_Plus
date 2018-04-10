@@ -5,6 +5,7 @@ import "./App.css";
 import HomePage from "./components/Homepage";
 import Docspage from "./components/DocsPage";
 import CalendarPage from "./components/CalendarPage";
+import LoginPage from "./components/LoginPage";
 
 const { Header, Footer, Content } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -32,7 +33,7 @@ class App extends Component {
               style={{ lineHeight: "64px" }}
             >
               <Menu.Item key="Homepage">
-                <NavLink to="/">
+                <NavLink to="/index">
                   <Icon type="bulb" /> Homepage
                 </NavLink>
               </Menu.Item>
@@ -46,35 +47,17 @@ class App extends Component {
                   <Icon type="calendar" /> Calendar
                 </NavLink>
               </Menu.Item>
-              <SubMenu
-                title={
-                  <span>
-                    <Icon type="setting" />Navigation Three - Submenu
-                  </span>
-                }
-              >
-                <MenuItemGroup title="Item 1">
-                  <Menu.Item key="setting:1">Option 1</Menu.Item>
-                  <Menu.Item key="setting:2">Option 2</Menu.Item>
-                </MenuItemGroup>
-                <MenuItemGroup title="Item 2">
-                  <Menu.Item key="setting:3">Option 3</Menu.Item>
-                  <Menu.Item key="setting:4">Option 4</Menu.Item>
-                </MenuItemGroup>
-              </SubMenu>
-              <Menu.Item key="google">
-                <a
-                  href="http://www.google.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Icon type="google" />
-                </a>
+              <Menu.Item key="login">
+                <NavLink to="/">
+                  <Icon type="login" />
+                  Login
+                </NavLink>
               </Menu.Item>
             </Menu>
           </Header>
           <Content>
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/" component={LoginPage} />
+            <Route path="/index" component={HomePage} />
             <Route path="/docs" component={Docspage} />
             <Route path="/calendar" component={CalendarPage} />
           </Content>
