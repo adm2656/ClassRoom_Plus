@@ -8,8 +8,6 @@ import CalendarPage from "./components/CalendarPage";
 import LoginPage from "./components/LoginPage";
 
 const { Header, Footer, Content } = Layout;
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 class App extends Component {
   state = {
