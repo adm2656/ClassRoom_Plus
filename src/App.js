@@ -16,46 +16,25 @@ const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 class App extends Component {
-	/*
-  state : {
-    current:string
+
+  static propTypes={
+    current:PropTypes.string.isRequired,
+    handleClickEvent:PropTypes.func.isRequired
   }
-  */
-  //handleClickEvent;
 
   constructor(props){
-	super(props);
-	this.state={
-		//current:"index"
-		current:props.current
-	}
-	//this.handleClickEvent=PropTypes.handleClickEvent;
+    super(props);
+
+  	this.state={
+	  	current:props.current
+    }
   }
 
 
   handleClick=(e)=>{
-	console.log("click", e);
-	/*
-	this.setState({
-		current:e.key
-	});
-	/*
-	store.dispatch({
-		type:"CLICK_MENU",
-		current:this.state.current
-	});
-	*/
-	this.props.handleClickEvent(e.key);
+	  console.log("click", e);
+  	this.props.handleClickEvent(e.key);
   }
-
-/*
-  handleClick = e => {
-    console.log("click ", e);
-    this.setState({
-      current: e.key
-    });
-  };
-*/
 
   render() {
     return (
@@ -104,12 +83,6 @@ class App extends Component {
       </BrowserRouter>
     );
   }
-}
-
-
-App.propTypes={
-	current:PropTypes.string.isRequired,
-	handleClickEvent:PropTypes.func.isRequired
 }
 
 const mapStateToProps=(state)=>{

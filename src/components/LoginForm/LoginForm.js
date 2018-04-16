@@ -12,6 +12,7 @@ class NormalLoginForm extends Component {
         }
       });
     }
+    
     render() {
       const { getFieldDecorator } = this.props.form;
       return (
@@ -47,8 +48,12 @@ class NormalLoginForm extends Component {
       );
     }
   }
-  
-  const LoginForm = Form.create()(NormalLoginForm);
 
+  const LoginForm = Form.create()(NormalLoginForm);
+  /*
+  const LoginForm = Form.create({
+      onFieldsChange(props, )
+  })(NormalLoginForm);
+  */
   export default LoginForm;
   
