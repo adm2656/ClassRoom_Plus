@@ -19,7 +19,7 @@ class App extends Component {
 
   static propTypes={
     current:PropTypes.string.isRequired,
-    handleClickEvent:PropTypes.func.isRequired
+    handleClick:PropTypes.func.isRequired
   }
 
   constructor(props){
@@ -30,19 +30,13 @@ class App extends Component {
     }
   }
 
-
-  handleClick=(e)=>{
-	  console.log("click", e);
-  	this.props.handleClickEvent(e.key);
-  }
-
   render() {
     return (
       <BrowserRouter>
         <Layout>
           <Header>
             <Menu
-              onClick={this.handleClick}
+              onClick={this.props.handleClick}
               selectedKeys={[this.state.current]}
               mode="horizontal"
               style={{ lineHeight: "64px" }}
@@ -93,8 +87,9 @@ const mapStateToProps=(state)=>{
 
 const mapDispatchToProps=(dispatch)=>{
 	return {
-		handleClickEvent:(page)=>{
-			dispatch(clickMenu(page));
+		handleClick:(e)=>{
+      console.log("click", e);
+			dispatch(clickMenu(e.key));
 		}
 	}
 }

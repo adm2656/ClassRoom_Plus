@@ -52,8 +52,18 @@ class NormalLoginForm extends Component {
   const LoginForm = Form.create()(NormalLoginForm);
   /*
   const LoginForm = Form.create({
-      onFieldsChange(props, )
+      onFieldsChange(dispatch){
+        return {
+          dispatch();
+        }
+      },
+      mapPropsToFields(props){
+        return{
+          username:
+        }
+      }
   })(NormalLoginForm);
   */
+
   export default LoginForm;
   
