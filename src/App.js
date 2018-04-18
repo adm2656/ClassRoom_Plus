@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Layout, Menu, Icon } from "antd";
 import { Route, NavLink, BrowserRouter } from "react-router-dom";
 import "./App.css";
-import HomePage from "./components/Homepage";
-import Docspage from "./components/DocsPage";
+import PrivateRoute from "./components/PrivateRouter";
+import HomePage from "./components/HomepPage";
+import DocsPage from "./components/DocsPage";
 import CalendarPage from "./components/CalendarPage";
 import LoginPage from "./components/LoginPage";
 
@@ -12,10 +13,9 @@ import { connect } from "react-redux";
 import { clickMenu } from "./actions/MenuActions.js";
 
 const { Header, Footer, Content } = Layout;
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 class App extends Component {
+<<<<<<< HEAD
 
   static propTypes={
     current:PropTypes.string.isRequired,
@@ -29,6 +29,18 @@ class App extends Component {
 	  	current:props.current
     }
   }
+=======
+  state = {
+    current: "index"
+  };
+
+  handleClick = e => {
+    console.log("click ", e);
+    this.setState({
+      current: e.key
+    });
+  };
+>>>>>>> adam/master
 
   render() {
     return (
@@ -56,19 +68,19 @@ class App extends Component {
                   <Icon type="calendar" /> Calendar
                 </NavLink>
               </Menu.Item>
-              <Menu.Item key="login">
+              <Menu.Item key="logout">
                 <NavLink to="/">
-                  <Icon type="login" />
-                  Login
+                  <Icon type="logout" />
+                  Logout
                 </NavLink>
               </Menu.Item>
             </Menu>
           </Header>
           <Content>
             <Route exact path="/" component={LoginPage} />
-            <Route path="/index" component={HomePage} />
-            <Route path="/docs" component={Docspage} />
-            <Route path="/calendar" component={CalendarPage} />
+            <PrivateRoute path="/index" component={HomePage} />
+            <PrivateRoute path="/docs" component={DocsPage} />
+            <PrivateRoute path="/calendar" component={CalendarPage} />
           </Content>
           <Footer>
             Copyright <Icon type="copyright" /> Classroom+. All Right Reserved.
