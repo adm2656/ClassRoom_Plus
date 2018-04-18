@@ -15,7 +15,6 @@ import { clickMenu } from "./actions/MenuActions.js";
 const { Header, Footer, Content } = Layout;
 
 class App extends Component {
-<<<<<<< HEAD
 
   static propTypes={
     current:PropTypes.string.isRequired,
@@ -29,18 +28,6 @@ class App extends Component {
 	  	current:props.current
     }
   }
-=======
-  state = {
-    current: "index"
-  };
-
-  handleClick = e => {
-    console.log("click ", e);
-    this.setState({
-      current: e.key
-    });
-  };
->>>>>>> adam/master
 
   render() {
     return (
