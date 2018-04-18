@@ -7,20 +7,35 @@ import Docspage from "./components/DocsPage";
 import CalendarPage from "./components/CalendarPage";
 import LoginPage from "./components/LoginPage";
 
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { clickMenu } from "./actions/MenuActions.js";
+
 const { Header, Footer, Content } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 class App extends Component {
-  state = {
-    current: "index"
-  };
-  handleClick = e => {
-    console.log("click ", e);
-    this.setState({
-      current: e.key
-    });
-  };
+
+  static propTypes={
+    current:PropTypes.string.isRequired,
+    handleClickEvent:PropTypes.func.isRequired
+  }
+
+  constructor(props){
+    super(props);
+
+  	this.state={
+	  	current:props.current
+    }
+  }
+
+
+  handleClick=(e)=>{
+	  console.log("click", e);
+  	this.props.handleClickEvent(e.key);
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -69,5 +84,21 @@ class App extends Component {
     );
   }
 }
+
+const mapStateToProps=(state)=>{
+	return {
+		current:state.current
+	}
+}
+
+const mapDispatchToProps=(dispatch)=>{
+	return {
+		handleClickEvent:(page)=>{
+			dispatch(clickMenu(page));
+		}
+	}
+}
+
+App=connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default App;
