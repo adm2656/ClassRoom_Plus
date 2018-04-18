@@ -8,19 +8,26 @@ import DocsPage from "./components/DocsPage";
 import CalendarPage from "./components/CalendarPage";
 import LoginPage from "./components/LoginPage";
 
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { clickMenu } from "./actions/MenuActions.js";
+
 const { Header, Footer, Content } = Layout;
 
 class App extends Component {
-  state = {
-    current: "index"
-  };
 
-  handleClick = e => {
-    console.log("click ", e);
-    this.setState({
-      current: e.key
-    });
-  };
+  static propTypes={
+    current:PropTypes.string.isRequired,
+    handleClick:PropTypes.func.isRequired
+  }
+
+  constructor(props){
+    super(props);
+
+  	this.state={
+	  	current:props.current
+    }
+  }
 
   render() {
     return (
@@ -28,7 +35,7 @@ class App extends Component {
         <Layout>
           <Header>
             <Menu
-              onClick={this.handleClick}
+              onClick={this.props.handleClick}
               selectedKeys={[this.state.current]}
               mode="horizontal"
               style={{ lineHeight: "64px" }}
@@ -70,5 +77,22 @@ class App extends Component {
     );
   }
 }
+
+const mapStateToProps=(state)=>{
+	return {
+		current:state.current
+	}
+}
+
+const mapDispatchToProps=(dispatch)=>{
+	return {
+		handleClick:(e)=>{
+      console.log("click", e);
+			dispatch(clickMenu(e.key));
+		}
+	}
+}
+
+App=connect(mapStateToProps, mapDispatchToProps)(App);
 
 export default App;
