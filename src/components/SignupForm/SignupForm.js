@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Button } from "antd";
-import { Link } from "react-router-dom";
 
 const FormItem = Form.Item;
 
-class NormalLoginForm extends Component {
+class NormalSignupForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -17,10 +16,10 @@ class NormalLoginForm extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form onSubmit={this.handleSubmit} className="login-form">
+      <Form onSubmit={this.handleSubmit} className="signup-form">
         <FormItem>
           {getFieldDecorator("userName", {
-            rules: [{ required: true, message: "Please input your username!" }]
+            rules: [{ required: true, message: "Please input username you want!" }]
           })(
             <Input
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -43,20 +42,19 @@ class NormalLoginForm extends Component {
           <Button
             type="primary"
             htmlType="submit"
-            className="login-form-button"
+            className="signup-form-button"
           >
-            Log in
+            Signup
           </Button>
-          <Link to="/signup">register now!</Link>
         </FormItem>
       </Form>
     );
   }
 }
 
-const LoginForm = Form.create()(NormalLoginForm);
+const SignupForm = Form.create()(NormalSignupForm);
 /*
-  const LoginForm = Form.create({
+  const SignupForm = Form.create({
       onFieldsChange(dispatch){
         return {
           dispatch();
@@ -67,7 +65,7 @@ const LoginForm = Form.create()(NormalLoginForm);
           username:
         }
       }
-  })(NormalLoginForm);
+  })(SignupForm);
   */
 
-export default LoginForm;
+export default SignupForm;
