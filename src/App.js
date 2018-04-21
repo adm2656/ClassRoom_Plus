@@ -17,8 +17,7 @@ const { Header, Footer, Content } = Layout;
 class App extends Component {
 
   static propTypes={
-    current:PropTypes.string.isRequired,
-    handleClick:PropTypes.func.isRequired
+    current:PropTypes.string.isRequired
   }
 
   constructor(props){
@@ -28,6 +27,14 @@ class App extends Component {
 	  	current:props.current
     }
   }
+  
+  
+	handleClick=(e)=>{
+    //console.log("click", e);
+    const { dispatch } = this.props;
+		dispatch(clickMenu(e.key));
+	}
+  
 
   render() {
     return (
@@ -35,7 +42,7 @@ class App extends Component {
         <Layout>
           <Header>
             <Menu
-              onClick={this.props.handleClick}
+              onClick={this.handleClick}
               selectedKeys={[this.state.current]}
               mode="horizontal"
               style={{ lineHeight: "64px" }}
@@ -84,15 +91,6 @@ const mapStateToProps=(state)=>{
 	}
 }
 
-const mapDispatchToProps=(dispatch)=>{
-	return {
-		handleClick:(e)=>{
-      console.log("click", e);
-			dispatch(clickMenu(e.key));
-		}
-	}
-}
-
-App=connect(mapStateToProps, mapDispatchToProps)(App);
+App=connect(mapStateToProps)(App);
 
 export default App;
