@@ -39,6 +39,12 @@
   width: 60%;
   display: block;
   margin: auto;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 80px;
+}
+
+.signup{
+  width: 60%;
+  display: block;
+  margin: auto;
+  padding-top: 80px;
 }
