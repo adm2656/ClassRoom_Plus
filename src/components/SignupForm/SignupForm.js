@@ -1,14 +1,38 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Button } from "antd";
+import { SignupAction } from "./actions/SignupAction";
 
 const FormItem = Form.Item;
 
 class NormalSignupForm extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      user: {
+        username: "",
+        password: ""
+      },
+      submitted: false
+    };
+  }
+
+  handleFormChange = changedFields => {
+    this.setState(({ user }) => ({
+      user: { ...user, ...changedFields }
+    }));
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log("Received values of form: ", values);
+        this.setState({ submitted: true });
+        const { user } = this.state;
+        const { dispatch } = this.props;
+        if (user.username && user.password) {
+          dispatch(SignupAction(user.username, user.password));
+        }
       }
     });
   };
@@ -19,7 +43,9 @@ class NormalSignupForm extends Component {
       <Form onSubmit={this.handleSubmit} className="signup-form">
         <FormItem>
           {getFieldDecorator("userName", {
-            rules: [{ required: true, message: "Please input username you want!" }]
+            rules: [
+              { required: true, message: "Please input username you want!" }
+            ]
           })(
             <Input
               prefix={<Icon type="user" style={{ color: "rgba(0,0,0,.25)" }} />}
@@ -53,19 +79,5 @@ class NormalSignupForm extends Component {
 }
 
 const SignupForm = Form.create()(NormalSignupForm);
-/*
-  const SignupForm = Form.create({
-      onFieldsChange(dispatch){
-        return {
-          dispatch();
-        }
-      },
-      mapPropsToFields(props){
-        return{
-          username:
-        }
-      }
-  })(SignupForm);
-  */
 
 export default SignupForm;

@@ -1,5 +1,4 @@
-
-export const login=(username, password, remember)=>{
+export const login=(username, password)=>{
     return {
         type:"LOGIN",
         payload:{
@@ -8,9 +7,6 @@ export const login=(username, password, remember)=>{
             },
             password:{
                 value:password
-            },
-            remember:{
-                save:remember
             }
         }
     }

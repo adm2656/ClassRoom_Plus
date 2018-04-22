@@ -1,15 +1,39 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Button } from "antd";
 import { Link } from "react-router-dom";
+import { LoginAction } from "./actions/LoginAction";
 
 const FormItem = Form.Item;
 
 class NormalLoginForm extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      user: {
+        username: "",
+        password: ""
+      },
+      submitted: false
+    };
+  }
+
+  handleFormChange = changedFields => {
+    this.setState(({ user }) => ({
+      user: { ...user, ...changedFields }
+    }));
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log("Received values of form: ", values);
+        this.setState({ submitted: true });
+        const { user } = this.state;
+        const { dispatch } = this.props;
+        if (user.username && user.password) {
+          dispatch(LoginAction(user.username, user.password));
+        }
       }
     });
   };
@@ -55,19 +79,5 @@ class NormalLoginForm extends Component {
 }
 
 const LoginForm = Form.create()(NormalLoginForm);
-/*
-  const LoginForm = Form.create({
-      onFieldsChange(dispatch){
-        return {
-          dispatch();
-        }
-      },
-      mapPropsToFields(props){
-        return{
-          username:
-        }
-      }
-  })(NormalLoginForm);
-  */
 
 export default LoginForm;
