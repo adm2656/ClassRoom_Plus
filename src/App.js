@@ -7,7 +7,6 @@ import HomePage from "./components/HomepPage";
 import DocsPage from "./components/DocsPage";
 import CalendarPage from "./components/CalendarPage";
 import LoginPage from "./components/LoginPage";
-import SignupPage from "./components/SignupPage";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -23,15 +22,19 @@ class App extends Component {
 
   constructor(props){
     super(props);
+
   	this.state={
 	  	current:"index"
     }
   }
   
+  
 	handleClick=(e)=>{
     //console.log("click", e);
-		this.props.dispatch(clickMenu(e.key));
-	} 
+    const { dispatch } = this.props;
+		dispatch(clickMenu(e.key));
+	}
+  
 
   render() {
     return (
@@ -59,17 +62,16 @@ class App extends Component {
                   <Icon type="calendar" /> Calendar
                 </NavLink>
               </Menu.Item>
-              <Menu.Item key="login">
+              <Menu.Item key="logout">
                 <NavLink to="/">
-                  <Icon type="login" />
-                  Login
+                  <Icon type="logout" />
+                  Logout
                 </NavLink>
               </Menu.Item>
             </Menu>
           </Header>
           <Content>
             <Route exact path="/" component={LoginPage} />
-            <Route path="/signup" component={SignupPage} /> 
             <PrivateRoute path="/index" component={HomePage} />
             <PrivateRoute path="/docs" component={DocsPage} />
             <PrivateRoute path="/calendar" component={CalendarPage} />
