@@ -22,19 +22,15 @@ class App extends Component {
 
   constructor(props){
     super(props);
-
   	this.state={
-	  	current:props.current
+	  	current:"index"
     }
   }
   
-  
 	handleClick=(e)=>{
     //console.log("click", e);
-    const { dispatch } = this.props;
-		dispatch(clickMenu(e.key));
-	}
-  
+		this.props.dispatch(clickMenu(e.key));
+	} 
 
   render() {
     return (

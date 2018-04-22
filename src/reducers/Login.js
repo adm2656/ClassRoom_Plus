@@ -1,26 +1,30 @@
 const initialState={
-    username:{
-        rules:[{
-            required:true,
-            message:"Please input your username !"
-        }]
+    user:{
+        username:"",
+        password:""
     },
-    password:{
-        rules:[{
-            required:true,
-            message:"Please input your password !"
-        }]
-    },
-    remember:{
-        ValuePropName:"checked",
-        initailValue:true
-    }
+    isAuthenticated:false
 };
 
 const Login=(state=initialState, action)=>{
     switch(action.type){
-        case "LOGIN":{
-            return Object.assign({}, state, ...action.payload);
+        case "USERNAMECHANGE":{
+            return {
+                user:{
+                    username:action.payload.username,
+                    password:state.user.password
+                },
+                isAuthenticated:state.isAuthenticated
+            }
+        }
+        case "PASSWORDCHANGE":{
+            return {
+                user:{
+                    username:state.user.username,
+                    password:action.payload.password
+                },
+                isAuthenticated:state.isAuthenticated
+            }
         }
         default:{
             return state;

@@ -1,9 +1,33 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
+import { usernameChange, passwordChange } from "../../actions/LoginActions";
+import { connect } from 'react-redux';
+import propTypes from "prop-types";
+
 const FormItem = Form.Item;
 
 class NormalLoginForm extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state={
+      user:{
+        username:"",
+        password:""
+      }
+    };
+  }
+
+  handleFormChange=(changedFields)=>{
+    this.setState(({user})=>{
+        return {
+          user:{...user, ...changedFields}
+        }
+    })
+  }
+
     handleSubmit = (e) => {
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
@@ -49,21 +73,27 @@ class NormalLoginForm extends Component {
     }
   }
 
-  const LoginForm = Form.create()(NormalLoginForm);
-  /*
-  const LoginForm = Form.create({
-      onFieldsChange(dispatch){
-        return {
-          dispatch();
+  //const LoginForm = Form.create()(NormalLoginForm);
+  
+  
+  const createForm = Form.create({
+      onValuesChange(props, values){
+        if(values.userName !== undefined )
+        {
+          props.dispatch(usernameChange(values.userName));
         }
-      },
-      mapPropsToFields(props){
-        return{
-          username:
+        if(values.password !== undefined)
+        {
+          props.dispatch(passwordChange(values.password));
         }
       }
   })(NormalLoginForm);
-  */
+  
+  const mapStateToProps=(state)=>{
+    return state;
+  }
+
+  const LoginForm=connect(mapStateToProps)(createForm);
 
   export default LoginForm;
   
