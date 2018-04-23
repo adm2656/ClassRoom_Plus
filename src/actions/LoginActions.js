@@ -1,18 +1,17 @@
 
-export const usernameChange=(usernameInput)=>{
+export const login=(username, password, remember)=>{
     return {
-        type:"USERNAMECHANGE",
+        type:"LOGIN",
         payload:{
-            username:usernameInput
-        }
-    }
-}
-
-export const passwordChange=(passwordInput)=>{
-    return {
-        type:"PASSWORDCHANGE",
-        payload:{
-            password:passwordInput
+            username:{
+                value:username
+            },
+            password:{
+                value:password
+            },
+            remember:{
+                save:remember
+            }
         }
     }
 }
