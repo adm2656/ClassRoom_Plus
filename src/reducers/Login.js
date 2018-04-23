@@ -10,10 +10,6 @@ const initialState={
             required:true,
             message:"Please input your password !"
         }]
-    },
-    remember:{
-        ValuePropName:"checked",
-        initailValue:true
     }
 };
 
