@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Button } from "antd";
 import { Link } from "react-router-dom";
-import { LoginAction } from "./LoginAction";
 
 const FormItem = Form.Item;
 
@@ -18,21 +17,20 @@ class NormalLoginForm extends Component {
     };
   }
 
-  handleFormChange = changedFields => {
-    this.setState(({ user }) => ({
-      user: { ...user, ...changedFields }
-    }));
-  };
-
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.setState({ submitted: true });
-        const { user } = this.state;
-        const { dispatch } = this.props;
-        if (user.username && user.password) {
-          dispatch(LoginAction(user.username, user.password));
+        const userName = this.props.form.getFieldValue("username");
+        const passWord = this.props.form.getFieldValue("password");
+        this.setState({ 
+          user: {
+            username: userName,
+            password: passWord
+          },
+          submitted: true });
+        if(this.state.submitted){
+          console.log(this.state);
         }
       }
     });
@@ -43,7 +41,7 @@ class NormalLoginForm extends Component {
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
         <FormItem>
-          {getFieldDecorator("userName", {
+          {getFieldDecorator("username", {
             rules: [{ required: true, message: "Please input your username!" }]
           })(
             <Input

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Button } from "antd";
-import { SignupAction } from "./SigniupAction";
 
 const FormItem = Form.Item;
 
@@ -17,21 +16,20 @@ class NormalSignupForm extends Component {
     };
   }
 
-  handleFormChange = changedFields => {
-    this.setState(({ user }) => ({
-      user: { ...user, ...changedFields }
-    }));
-  };
-
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.setState({ submitted: true });
-        const { user } = this.state;
-        const { dispatch } = this.props;
-        if (user.username && user.password) {
-          dispatch(SignupAction(user.username, user.password));
+        const userName = this.props.form.getFieldValue("username");
+        const passWord = this.props.form.getFieldValue("password");
+        this.setState({ 
+          user: {
+            username: userName,
+            password: passWord
+          },
+          submitted: true });
+        if(this.state.submitted){
+          console.log(this.state);
         }
       }
     });
