@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Button } from "antd";
 import { Link } from "react-router-dom";
-import { LoginAction } from "./actions/LoginAction";
+import { LoginAction } from "./LoginAction";
 
 const FormItem = Form.Item;
 

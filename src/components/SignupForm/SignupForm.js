@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Button } from "antd";
-import { SignupAction } from "./actions/SignupAction";
+import { SignupAction } from "./SigniupAction";
 
 const FormItem = Form.Item;
 
