@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Button } from "antd";
 import { Link } from "react-router-dom";
-import { LoginAction } from "./actions/LoginAction";
+import { login } from "../../actions/LoginActions";
 
 const FormItem = Form.Item;
 
@@ -19,11 +19,13 @@ class NormalLoginForm extends Component {
   }
 
   handleFormChange = changedFields => {
+    console.log("d");
     this.setState(({ user }) => ({
       user: { ...user, ...changedFields }
     }));
   };
 
+  
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -31,12 +33,16 @@ class NormalLoginForm extends Component {
         this.setState({ submitted: true });
         const { user } = this.state;
         const { dispatch } = this.props;
+        console.log("c1"+this.state.username);
+        console.log("c2"+this.state.password);
         if (user.username && user.password) {
-          dispatch(LoginAction(user.username, user.password));
+          console.log("c");
+          dispatch(login(user.username, user.password));
         }
       }
     });
   };
+  
 
   render() {
     const { getFieldDecorator } = this.props.form;

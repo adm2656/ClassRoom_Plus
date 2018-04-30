@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Button } from "antd";
-import { SignupAction } from "./actions/SignupAction";
+//import { signup } from ".. /../actions/SignupAction";
 
 const FormItem = Form.Item;
 
@@ -23,6 +23,7 @@ class NormalSignupForm extends Component {
     }));
   };
 
+  /*
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -31,11 +32,12 @@ class NormalSignupForm extends Component {
         const { user } = this.state;
         const { dispatch } = this.props;
         if (user.username && user.password) {
-          dispatch(SignupAction(user.username, user.password));
+          dispatch(signup(user.username, user.password));
         }
       }
     });
   };
+  */
 
   render() {
     const { getFieldDecorator } = this.props.form;
