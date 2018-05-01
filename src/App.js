@@ -52,11 +52,6 @@ class App extends Component {
                   <Icon type="bulb" /> Homepage
                 </NavLink>
               </Menu.Item>
-              <Menu.Item key="docs">
-                <NavLink to="/docs">
-                  <Icon type="book" /> Docs
-                </NavLink>
-              </Menu.Item>
               <Menu.Item key="calendar">
                 <NavLink to="/calendar">
                   <Icon type="calendar" /> Calendar
