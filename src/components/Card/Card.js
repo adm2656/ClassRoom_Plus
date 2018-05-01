@@ -27,6 +27,14 @@ const data = [
 
 const { Meta } = Card;
 
+const imgstyle = {
+  display: 'block',
+  margin: "auto",
+  width: '80%',
+  height: '80%',
+  backgroundColor: 'white',
+};
+
 class classCard extends Component {
   render() {
     return (
@@ -38,7 +46,7 @@ class classCard extends Component {
             <List.Item>
               <Card
                 hoverable
-                cover={<img alt="book" src="http://mtc.ntnu.edu.tw/upload_files/icon/training.png" />}
+                cover={<img alt="book" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUJ1vyXuMkXQ5y2iAcua_mfAHeAVTmUmAWZHyi783AINXYG0c0" style={imgstyle}/>}
                 actions={[
                   <Link to="/docs">
                   <Icon type="copy" style={{fontSize:32}}/>
