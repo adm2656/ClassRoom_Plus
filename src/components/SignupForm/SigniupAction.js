@@ -1,4 +1,4 @@
-export const signup=(username, password)=>{
+export const SignupAction=(username, password)=>{
     return {
         type:"SIGNUP",
         payload:{

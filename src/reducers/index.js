@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import Menu from "./Menu.js";
-import UserInfo from "./UserInfo.js";
+import User from "./User.js";
 
 const projectApp=combineReducers({
 	Menu,
-	UserInfo
+	User
 });
 
 export default projectApp;
