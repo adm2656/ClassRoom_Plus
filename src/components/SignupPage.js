@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SignupForm from "./SignupForm/SignupForm";
 import "./SignupForm/SignupForm.css";
 
-class LoginPage extends Component {
+class SignupPage extends Component {
   render() {
     return (
       <div class="signup">
@@ -12,4 +12,4 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+export default SignupPage;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { List, Card, Icon, Button } from "antd";
+import { List, Card, Icon } from "antd";
 import { Link } from "react-router-dom";
 
 const data = [
@@ -38,7 +38,7 @@ class classCard extends Component {
             <List.Item>
               <Card
                 hoverable
-                cover={<img alt="book" src="http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/256/Play-Books-icon.png" />}
+                cover={<img alt="book" src="http://mtc.ntnu.edu.tw/upload_files/icon/training.png" />}
                 actions={[
                   <Link to="/docs">
                   <Icon type="copy" style={{fontSize:32}}/>
