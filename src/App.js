@@ -7,6 +7,7 @@ import HomePage from "./components/HomepPage";
 import DocsPage from "./components/DocsPage";
 import CalendarPage from "./components/CalendarPage";
 import LoginPage from "./components/LoginPage";
+import SignupPage from "./components/SignupPage";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -45,26 +46,22 @@ class App extends Component {
                   <Icon type="bulb" /> Homepage
                 </NavLink>
               </Menu.Item>
-              <Menu.Item key="docs">
-                <NavLink to="/docs">
-                  <Icon type="book" /> Docs
-                </NavLink>
-              </Menu.Item>
               <Menu.Item key="calendar">
                 <NavLink to="/calendar">
                   <Icon type="calendar" /> Calendar
                 </NavLink>
               </Menu.Item>
-              <Menu.Item key="logout">
+              <Menu.Item key="login">
                 <NavLink to="/">
-                  <Icon type="logout" />
-                  Logout
+                  <Icon type="login" />
+                  Login
                 </NavLink>
               </Menu.Item>
             </Menu>
           </Header>
           <Content>
             <Route exact path="/" component={LoginPage} />
+            <Route path="/signup" component={SignupPage} /> 
             <PrivateRoute path="/index" component={HomePage} />
             <PrivateRoute path="/docs" component={DocsPage} />
             <PrivateRoute path="/calendar" component={CalendarPage} />

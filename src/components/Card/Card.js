@@ -1,32 +1,39 @@
 import React, { Component } from "react";
 import { List, Card, Icon } from "antd";
+import { Link } from "react-router-dom";
 
 const data = [
   {
-    title: "Class 1"
+    title: "Class 1",
+    info: "test"
   },
   {
-    title: "Class 2"
+    title: "Class 2",
+    info: "test"
   },
   {
-    title: "Class 3"
+    title: "Class 3",
+    info: "test"
   },
   {
-    title: "Class 4"
+    title: "Class 4",
+    info: "test"
   },
   {
-    title: "Class 5"
-  },
-  {
-    title: "Class 6"
-  },
-  {
-    title: "Class 7"
-  },
-  {
-    title: "Class 8"
+    title: "Class 5",
+    info: "test"
   }
 ];
+
+const { Meta } = Card;
+
+const imgstyle = {
+  display: 'block',
+  margin: '10px 7px 10px 13px',
+  width: '90%',
+  height: '90%',
+  backgroundColor: 'white',
+};
 
 class classCard extends Component {
   render() {
@@ -38,14 +45,18 @@ class classCard extends Component {
           renderItem={item => (
             <List.Item>
               <Card
+                hoverable
+                cover={<img alt="book" src="https://image.flaticon.com/icons/svg/201/201614.svg" style={imgstyle}/>}
                 actions={[
-                  <Icon type="setting" />,
-                  <Icon type="edit" />,
-                  <Icon type="ellipsis" />
+                  <Link to="/docs">
+                  <Icon type="copy" style={{fontSize:32}}/>DOCS
+                  </Link>
                 ]}
-                title={item.title}
               >
-                info
+                <Meta
+                title={item.title}
+                description={item.info}
+                 />
               </Card>
             </List.Item>
           )}
