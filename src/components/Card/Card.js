@@ -29,9 +29,9 @@ const { Meta } = Card;
 
 const imgstyle = {
   display: 'block',
-  margin: "auto",
-  width: '80%',
-  height: '80%',
+  margin: '10px 7px 10px 13px',
+  width: '90%',
+  height: '90%',
   backgroundColor: 'white',
 };
 
@@ -46,10 +46,10 @@ class classCard extends Component {
             <List.Item>
               <Card
                 hoverable
-                cover={<img alt="book" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUJ1vyXuMkXQ5y2iAcua_mfAHeAVTmUmAWZHyi783AINXYG0c0" style={imgstyle}/>}
+                cover={<img alt="book" src="https://image.flaticon.com/icons/svg/201/201614.svg" style={imgstyle}/>}
                 actions={[
                   <Link to="/docs">
-                  <Icon type="copy" style={{fontSize:32}}/>
+                  <Icon type="copy" style={{fontSize:32}}/>DOCS
                   </Link>
                 ]}
               >
