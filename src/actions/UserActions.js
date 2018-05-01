@@ -1,13 +1,11 @@
 import {loginRoute, signupRoute} from "../routes";
 
 const loginAction = (username, password) => {
-    console.log("a");
     return (dispatch)=>{
         dispatch(loginRequest(username));
 
         loginRoute(username, password)
             .then((user) => {
-                console.log(user);
                 if(user.status && user.username === username && user.token){
                     localStorage.setItem("user", JSON.stringify({
                         user:{
@@ -18,12 +16,12 @@ const loginAction = (username, password) => {
                     dispatch(loginSuccess(user));
                 }
                 else{
-                    dispatch(loginFailed(username));
+                    //console.log(user.errors);
+                    dispatch(loginFailed(username, user));
                 }
             })
             .catch((err) => {
-                console.log(err);
-                dispatch(loginFailed(username));
+                dispatch(loginFailed(username, err));
             });
             
     }
@@ -38,11 +36,12 @@ const loginRequest = (username) =>{
     }
 }
 
-const loginFailed = (username) =>{
+const loginFailed = (username, err) =>{
     return {
         type:"LOGIN_FAILED",
         payload:{
-            username:username
+            username:username,
+            ...err
         }
     }
 }
@@ -56,4 +55,4 @@ const loginSuccess = (user) =>{
     };
 }
 
-export { loginAction, loginRequest };
+export { loginAction };

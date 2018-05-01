@@ -1,7 +1,6 @@
 const initialState={
     user:{
-        username:"",
-        password:""
+        username:""
     },
     isAuthenticated:false
 };
@@ -19,7 +18,7 @@ const UserInfo=(state=initialState, action)=>{
         case "LOGIN_FAILED":{
             return {
                 user:{
-                    username:action.payload.username
+                    ...action.payload
                 },
                 isAuthenticated:false
             }

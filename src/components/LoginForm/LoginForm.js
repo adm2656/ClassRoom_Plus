@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Button } from "antd";
 import { Link } from "react-router-dom";
-import { loginAction, loginRequest } from "../../actions/UserActions";
+import { loginAction } from "../../actions/UserActions";
 import { connect } from "react-redux";
 
 const FormItem = Form.Item;
@@ -34,7 +34,6 @@ class NormalLoginForm extends Component {
 			this.props.form.validateFields((err, values) => {
 				if (!err) {
 					if (this.state.submitted) {
-						//console.log(this.state.user.username, this.state.user.password);
 						const { dispatch } = this.props;
 						dispatch(loginAction(this.state.user.username, this.state.user.password));
 					}
