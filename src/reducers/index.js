@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
-import Menu from "./Menu.js";
-import Login from "./Login.js";
+import Menu from "./Menu";
+import Authentication from "./Authentication";
+import Registration from "./Registration";
 
 const projectApp=combineReducers({
 	Menu,
-	Login
+	Authentication,
+	Registration
 });
 
 export default projectApp;

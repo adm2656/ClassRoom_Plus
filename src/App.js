@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Layout, Menu, Icon } from "antd";
-import { Route, NavLink, BrowserRouter } from "react-router-dom";
+import { Router, Route, NavLink } from "react-router-dom";
 import "./App.css";
 import PrivateRoute from "./components/PrivateRouter";
 import HomePage from "./components/HomepPage";
@@ -8,6 +8,7 @@ import DocsPage from "./components/DocsPage";
 import CalendarPage from "./components/CalendarPage";
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
+import history from "./helpers/history";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -17,26 +18,32 @@ const { Header, Footer, Content } = Layout;
 
 class App extends Component {
 
-  static propTypes={
-    current:PropTypes.string.isRequired,
-    handleClick:PropTypes.func.isRequired
+  static propTypes = {
+    current: PropTypes.string.isRequired
   }
 
-  constructor(props){
+  constructor(props) {
     super(props);
 
-  	this.state={
-	  	current:props.current
+    this.state = {
+      current: ""
     }
   }
 
+
+  handleClick = (e) => {
+    const { dispatch } = this.props;
+    dispatch(clickMenu(e.key));
+  }
+
+
   render() {
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Layout>
           <Header>
             <Menu
-              onClick={this.props.handleClick}
+              onClick={this.handleClick}
               selectedKeys={[this.state.current]}
               mode="horizontal"
               style={{ lineHeight: "64px" }}
@@ -51,17 +58,17 @@ class App extends Component {
                   <Icon type="calendar" /> Calendar
                 </NavLink>
               </Menu.Item>
-              <Menu.Item key="login">
+              <Menu.Item key="logout">
                 <NavLink to="/">
-                  <Icon type="login" />
-                  Login
+                  <Icon type="logout" />
+                  Logout
                 </NavLink>
               </Menu.Item>
             </Menu>
           </Header>
           <Content>
             <Route exact path="/" component={LoginPage} />
-            <Route path="/signup" component={SignupPage} /> 
+            <Route path="/signup" component={SignupPage} />
             <PrivateRoute path="/index" component={HomePage} />
             <PrivateRoute path="/docs" component={DocsPage} />
             <PrivateRoute path="/calendar" component={CalendarPage} />
@@ -70,26 +77,21 @@ class App extends Component {
             Copyright <Icon type="copyright" /> Classroom+. All Right Reserved.
           </Footer>
         </Layout>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
 
-const mapStateToProps=(state)=>{
-	return {
-		current:state.current
-	}
+const mapStateToProps = (state) => {
+  const { Authenticatation } = state;
+  const { Menu } = state;
+
+  return {
+    Authenticatation,
+    Menu
+  }
 }
 
-const mapDispatchToProps=(dispatch)=>{
-	return {
-		handleClick:(e)=>{
-      console.log("click", e);
-			dispatch(clickMenu(e.key));
-		}
-	}
-}
-
-App=connect(mapStateToProps, mapDispatchToProps)(App);
+App = connect(mapStateToProps)(App);
 
 export default App;
