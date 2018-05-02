@@ -82,14 +82,14 @@ class NormalLoginForm extends Component {
 		);
 	}
 }
-/*
+
 const mapStateToProps = (state) => {
+	const { isAuthenticated } = state.Authentication;
 	return {
-		username:state.user
+		isAuthenticated
 	}
 }
-*/
 
-const LoginForm = connect()(Form.create()(NormalLoginForm));
+const LoginForm = connect(mapStateToProps)(Form.create()(NormalLoginForm));
 
 export default LoginForm;

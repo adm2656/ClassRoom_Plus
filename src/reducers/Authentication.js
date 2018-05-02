@@ -1,11 +1,7 @@
-const initialState={
-    user:{
-        username:""
-    },
-    isAuthenticated:false
-};
+const initUser = JSON.parse(localStorage.getItem("user"));
+const initialState = initUser ? {...initUser,isAuthenticated:true} : {user:{username:""},isAuthenticated:false};
 
-const UserInfo=(state=initialState, action)=>{
+const Authentication=(state=initialState, action)=>{
     switch(action.type){
         case "LOGIN_REQUEST":{
             return {
@@ -18,9 +14,10 @@ const UserInfo=(state=initialState, action)=>{
         case "LOGIN_FAILED":{
             return {
                 user:{
-                    ...action.payload
+                    username:action.payload.username
                 },
-                isAuthenticated:false
+                isAuthenticated:false,
+                errors:action.payload.errors
             }
         }
         case "LOGIN_SUCCESS":{
@@ -37,4 +34,4 @@ const UserInfo=(state=initialState, action)=>{
     }
 }
 
-export default UserInfo;
+export default Authentication;

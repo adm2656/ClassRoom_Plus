@@ -1,4 +1,7 @@
-import {loginRoute, signupRoute} from "../routes";
+import { loginRoute, signupRoute } from "../routes";
+import history from "../helpers/history";
+
+/*----------------------------------------------*/
 
 const loginAction = (username, password) => {
     return (dispatch)=>{
@@ -14,9 +17,9 @@ const loginAction = (username, password) => {
                         }
                     }));
                     dispatch(loginSuccess(user));
+                    history.push("/index");
                 }
                 else{
-                    //console.log(user.errors);
                     dispatch(loginFailed(username, user));
                 }
             })
@@ -41,7 +44,7 @@ const loginFailed = (username, err) =>{
         type:"LOGIN_FAILED",
         payload:{
             username:username,
-            ...err
+            errors:err.errors
         }
     }
 }
@@ -50,9 +53,62 @@ const loginSuccess = (user) =>{
     return {
         type:"LOGIN_SUCCESS",
         payload:{
-            ...user
+            username:user.username,
+            token:user.token
         }
     };
 }
 
-export { loginAction };
+/*----------------------------------------------*/
+
+const signupAction = (user) => {
+    return (dispatch) => {
+        dispatch(signupRequest(user.username));
+        
+        signupRoute(user)
+            .then((res) => {
+                if(res.status){
+                    dispatch(signupSuccess(res));
+                    history.push("/");
+                }
+                else{
+                    dispatch(signupFailed(user, res))
+                }
+            })
+            .catch((err) => {
+                dispatch(signupFailed(user, err));
+            });
+    }
+}
+
+const signupRequest = (username) => {
+    return {
+        type:"SIGNUP_REQUEST",
+        payload:{
+            username:username
+        }
+    }
+}
+
+const signupSuccess = (res) => {
+    return {
+        type:"SIGNUP_SUCCESS",
+        payload:{
+            ...res
+        }
+    }
+}
+
+const signupFailed = (user, err) => {
+    return {
+        type:"SIGNUP_FAILED",
+        payload:{
+            ...user,
+            ...err
+        }
+    }
+}
+
+/*----------------------------------------------*/
+
+export { loginAction, signupAction };
