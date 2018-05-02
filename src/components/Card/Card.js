@@ -29,7 +29,7 @@ const { Meta } = Card;
 
 const imgstyle = {
   display: 'block',
-  margin: '10px 7px 10px 13px',
+  margin: '10px 7px 0px 13px',
   width: '90%',
   height: '90%',
   backgroundColor: 'white',
