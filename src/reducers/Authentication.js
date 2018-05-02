@@ -28,6 +28,14 @@ const Authentication=(state=initialState, action)=>{
                 isAuthenticated:true
             }
         }
+        case "CLICK_LOGOUT":{
+            return {
+                user:{
+                    username:""
+                },
+                isAuthenticated:false
+            }
+        }
         default:{
             return state;
         }
