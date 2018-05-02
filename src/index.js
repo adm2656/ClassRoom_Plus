@@ -6,12 +6,10 @@ import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 
 import { Provider } from "react-redux";
-import { createStore } from "redux";
-import projectApp from "./reducers";
+import configureStore from "./store";
 
-const store=createStore(projectApp,  
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-	
+const store = configureStore();
+
 ReactDOM.render(
 	<Provider store={store}>
 		<App />

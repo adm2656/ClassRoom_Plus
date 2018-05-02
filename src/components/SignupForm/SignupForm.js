@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Form, Icon, Input, Button } from "antd";
+import { signupAction } from "../../actions/UserActions";
+import { connect } from "react-redux";
 
 const FormItem = Form.Item;
 
@@ -18,20 +20,23 @@ class NormalSignupForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        const userName = this.props.form.getFieldValue("username");
-        const passWord = this.props.form.getFieldValue("password");
-        this.setState({ 
-          user: {
-            username: userName,
-            password: passWord
-          },
-          submitted: true });
-        if(this.state.submitted){
-          console.log(this.state);
+    const userName = this.props.form.getFieldValue("username");
+    const passWord = this.props.form.getFieldValue("password");
+    this.setState({
+      user: {
+        username: userName,
+        password: passWord
+      },
+      submitted: true
+    }, () => {
+      this.props.form.validateFields((err, values) => {
+        if (!err) {
+          if (this.state.submitted) {
+            const { dispatch } = this.props;
+            dispatch(signupAction(this.state.user));
+          }
         }
-      }
+      });
     });
   };
 
@@ -40,7 +45,7 @@ class NormalSignupForm extends Component {
     return (
       <Form onSubmit={this.handleSubmit} className="signup-form">
         <FormItem>
-          {getFieldDecorator("userName", {
+          {getFieldDecorator("username", {
             rules: [
               { required: true, message: "Please input username you want!" }
             ]
@@ -76,6 +81,13 @@ class NormalSignupForm extends Component {
   }
 }
 
-const SignupForm = Form.create()(NormalSignupForm);
+const mapStateToProps = (state) => {
+  const { isRegister } = state.Registration;
+  return {
+    isRegister
+  }
+}
+
+const SignupForm = connect(mapStateToProps)(Form.create()(NormalSignupForm));
 
 export default SignupForm;
