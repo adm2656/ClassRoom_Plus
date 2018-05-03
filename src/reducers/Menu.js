@@ -1,5 +1,5 @@
 const initialState={
-	current:"index"
+	current:"/"
 };
 
 const Menu=(state=initialState, action)=>{

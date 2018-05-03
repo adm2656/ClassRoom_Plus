@@ -33,19 +33,26 @@ class App extends Component {
 
   handleClick = (e) => {
     const { dispatch } = this.props;
+    let k = e.key;
+
+    if(localStorage.getItem("user")){
+      k = e.key;
+    }
+    else{
+      k = "/";
+    }
+
     this.setState({
-      current:e.key
+      current:k
     }, () => {
       if(this.state.current !== "logout"){
         dispatch(clickMenu(this.state.current));
       }
       else{
         dispatch(clickLogout());
+        dispatch(clickMenu(this.state.current));
       }
     });
-
-    
-    
   }
 
 
