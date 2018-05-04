@@ -12,7 +12,7 @@ import history from "./helpers/history";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { clickMenu } from "./actions/MenuActions.js";
+import { clickMenu, clickLogout } from "./actions/MenuActions.js";
 
 const { Header, Footer, Content } = Layout;
 
@@ -33,7 +33,19 @@ class App extends Component {
 
   handleClick = (e) => {
     const { dispatch } = this.props;
-    dispatch(clickMenu(e.key));
+    this.setState({
+      current:e.key
+    }, () => {
+      if(this.state.current !== "logout"){
+        dispatch(clickMenu(this.state.current));
+      }
+      else{
+        dispatch(clickLogout());
+      }
+    });
+
+    
+    
   }
 
 
