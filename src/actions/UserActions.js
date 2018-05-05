@@ -4,57 +4,57 @@ import history from "../helpers/history";
 /*----------------------------------------------*/
 
 const loginAction = (username, password) => {
-    return (dispatch)=>{
+    return (dispatch) => {
         dispatch(loginRequest(username));
 
         loginRoute(username, password)
             .then((user) => {
-                if(user.status && user.username === username && user.token){
+                if (user.status && user.username === username && user.token) {
                     localStorage.setItem("user", JSON.stringify({
-                        user:{
-                            username:user.username,
-                            token:user.token
+                        user: {
+                            username: user.username,
+                            token: user.token
                         }
                     }));
                     dispatch(loginSuccess(user));
                     history.push("/index");
                 }
-                else{
+                else {
                     dispatch(loginFailed(username, user));
                 }
             })
             .catch((err) => {
                 dispatch(loginFailed(username, err));
             });
-            
+
     }
 }
 
-const loginRequest = (username) =>{
+const loginRequest = (username) => {
     return {
-        type:"LOGIN_REQUEST",
-        payload:{
-            username:username
+        type: "LOGIN_REQUEST",
+        payload: {
+            username: username
         }
     }
 }
 
-const loginFailed = (username, err) =>{
+const loginFailed = (username, err) => {
     return {
-        type:"LOGIN_FAILED",
-        payload:{
-            username:username,
-            errors:err.errors
+        type: "LOGIN_FAILED",
+        payload: {
+            username: username,
+            errors: err.errors
         }
     }
 }
 
-const loginSuccess = (user) =>{
+const loginSuccess = (user) => {
     return {
-        type:"LOGIN_SUCCESS",
-        payload:{
-            username:user.username,
-            token:user.token
+        type: "LOGIN_SUCCESS",
+        payload: {
+            username: user.username,
+            token: user.token
         }
     };
 }
@@ -64,14 +64,14 @@ const loginSuccess = (user) =>{
 const signupAction = (user) => {
     return (dispatch) => {
         dispatch(signupRequest(user.username));
-        
+
         signupRoute(user)
             .then((res) => {
-                if(res.status){
+                if (res.status) {
                     dispatch(signupSuccess(res));
                     history.push("/");
                 }
-                else{
+                else {
                     dispatch(signupFailed(user, res))
                 }
             })
@@ -83,17 +83,17 @@ const signupAction = (user) => {
 
 const signupRequest = (username) => {
     return {
-        type:"SIGNUP_REQUEST",
-        payload:{
-            username:username
+        type: "SIGNUP_REQUEST",
+        payload: {
+            username: username
         }
     }
 }
 
 const signupSuccess = (res) => {
     return {
-        type:"SIGNUP_SUCCESS",
-        payload:{
+        type: "SIGNUP_SUCCESS",
+        payload: {
             ...res
         }
     }
@@ -101,8 +101,8 @@ const signupSuccess = (res) => {
 
 const signupFailed = (user, err) => {
     return {
-        type:"SIGNUP_FAILED",
-        payload:{
+        type: "SIGNUP_FAILED",
+        payload: {
             ...user,
             ...err
         }
@@ -111,4 +111,16 @@ const signupFailed = (user, err) => {
 
 /*----------------------------------------------*/
 
-export { loginAction, signupAction };
+const logoutAction = () => {
+    localStorage.removeItem("user");
+    return {
+        type: "LOGOUT_ACTION"
+    }
+}
+
+const tokenExpired = () => {
+
+}
+
+/*----------------------------------------------*/
+export { loginAction, signupAction, logoutAction };

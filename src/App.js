@@ -10,17 +10,12 @@ import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import history from "./helpers/history";
 
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { clickMenu, clickLogout } from "./actions/MenuActions.js";
+import { logoutAction } from "./actions/UserActions";
 
 const { Header, Footer, Content } = Layout;
 
 class App extends Component {
-
-  static propTypes = {
-    current: PropTypes.string.isRequired
-  }
 
   constructor(props) {
     super(props);
@@ -28,29 +23,21 @@ class App extends Component {
     this.state = {
       current: ""
     }
+
+    if (localStorage.getItem("user")) {
+      history.push("/index");
+    }
   }
 
 
   handleClick = (e) => {
     const { dispatch } = this.props;
-    let k = e.key;
-
-    if(localStorage.getItem("user")){
-      k = e.key;
-    }
-    else{
-      k = "/";
-    }
 
     this.setState({
-      current:k
+      current: e.key
     }, () => {
-      if(this.state.current !== "logout"){
-        dispatch(clickMenu(this.state.current));
-      }
-      else{
-        dispatch(clickLogout());
-        dispatch(clickMenu(this.state.current));
+      if (this.state.current === "logout") {
+        dispatch(logoutAction());
       }
     });
   }
@@ -102,12 +89,9 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { Authenticatation } = state;
-  const { Menu } = state;
-
+  const { Authentication } = state;
   return {
-    Authenticatation,
-    Menu
+    Authentication
   }
 }
 

@@ -9,7 +9,6 @@ const FormItem = Form.Item;
 class NormalLoginForm extends Component {
 	constructor(props) {
 		super(props);
-
 		this.state = {
 			user: {
 				username: "",
@@ -84,7 +83,7 @@ class NormalLoginForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-	const { isAuthenticated } = state.Authentication;
+	const { isAuthenticated } = state;
 	return {
 		isAuthenticated
 	}
