@@ -1,9 +1,17 @@
 import React, { Component } from "react";
-import { Form, Icon, Input, Button } from "antd";
+import { Form, Icon, Input, Button, notification } from "antd";
 import { signupAction } from "../../actions/UserActions";
 import { connect } from "react-redux";
 
 const FormItem = Form.Item;
+
+const successNotification = () => {
+  notification.success({
+    message: "Hello",
+    description:
+      "Nice to meet you."
+  });
+};
 
 class NormalSignupForm extends Component {
   constructor(props) {
@@ -35,6 +43,7 @@ class NormalSignupForm extends Component {
             const { dispatch } = this.props;
             dispatch(signupAction(this.state.user));
           }
+          successNotification();
         }
       });
     });

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Icon } from "antd";
+import { Layout, Menu, Icon, notification } from "antd";
 import { Router, Route, NavLink } from "react-router-dom";
 import "./App.css";
 import PrivateRoute from "./components/PrivateRouter";
@@ -16,38 +16,42 @@ import { clickMenu, clickLogout } from "./actions/MenuActions.js";
 
 const { Header, Footer, Content } = Layout;
 
-class App extends Component {
+const logoutNotification = () => {
+  notification.success({
+    message: "Logout Success",
+    description: "See you next time."
+  });
+};
 
+class App extends Component {
   static propTypes = {
     current: PropTypes.string.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
 
     this.state = {
       current: ""
-    }
+    };
   }
 
-
-  handleClick = (e) => {
+  handleClick = e => {
     const { dispatch } = this.props;
-    this.setState({
-      current:e.key
-    }, () => {
-      if(this.state.current !== "logout"){
-        dispatch(clickMenu(this.state.current));
+    this.setState(
+      {
+        current: e.key
+      },
+      () => {
+        if (this.state.current !== "logout") {
+          dispatch(clickMenu(this.state.current));
+        } else {
+          dispatch(clickLogout());
+          logoutNotification();
+        }
       }
-      else{
-        dispatch(clickLogout());
-      }
-    });
-
-    
-    
-  }
-
+    );
+  };
 
   render() {
     return (
@@ -94,15 +98,15 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { Authenticatation } = state;
   const { Menu } = state;
 
   return {
     Authenticatation,
     Menu
-  }
-}
+  };
+};
 
 App = connect(mapStateToProps)(App);
 
