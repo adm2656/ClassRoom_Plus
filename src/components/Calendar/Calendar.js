@@ -4,27 +4,34 @@ import { Calendar, Badge } from "antd";
 function getListData(value) {
   let listData;
   switch (value.date()) {
-    case 8:
-      listData = [
-        { type: "warning", content: "This is warning event." },
-        { type: "success", content: "This is usual event." }
-      ];
-      break;
     case 10:
       listData = [
-        { type: "warning", content: "This is warning event." },
-        { type: "success", content: "This is usual event." },
-        { type: "error", content: "This is error event." }
+        { type: "warning", content: "功課一" },
+        { type: "success", content: "小考" }
       ];
       break;
-    case 15:
+    case 16:
       listData = [
-        { type: "warning", content: "This is warning event" },
-        { type: "success", content: "This is very long usual event。。...." },
-        { type: "error", content: "This is error event 1." },
-        { type: "error", content: "This is error event 2." },
-        { type: "error", content: "This is error event 3." },
-        { type: "error", content: "This is error event 4." }
+        { type: "warning", content: "功課二" },
+        { type: "error", content: "期中考" }
+      ];
+      break;
+    case 22:
+      listData = [
+        { type: "default", content: "小考" },
+        { type: "success", content: "期中報告" },
+        { type: "processing", content: "小組報告" }
+      ];
+      break;
+      case 28:
+      listData = [
+        { type: "warning", content: "期中考" },
+      ];
+      break;
+    case 31:
+      listData = [
+        { type: "success", content: "期中考" },
+        { type: "processing", content: "期中考" }
       ];
       break;
     default:
@@ -46,8 +53,8 @@ function dateCellRender(value) {
 }
 
 function getMonthData(value) {
-  if (value.month() === 8) {
-    return 1394;
+  if (value.month() === 7 || value.month() === 8) {
+    return "Summer vacation";
   }
 }
 
@@ -56,7 +63,6 @@ function monthCellRender(value) {
   return num ? (
     <div className="notes-month">
       <section>{num}</section>
-      <span>Backlog number</span>
     </div>
   ) : null;
 }

@@ -57,7 +57,7 @@ class classCard extends Component {
                   <Link to="/docs">
                     <Icon type="book" style={{ fontSize: 32 }} />Docs
                   </Link>,
-                  <Link to="">
+                  <Link to="/discuss">
                     <Icon type="team" style={{ fontSize: 32 }} />Discuss
                   </Link>
                 ]}

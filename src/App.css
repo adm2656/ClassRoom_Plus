@@ -48,3 +48,20 @@
   margin: auto;
   padding-top: 80px;
 }
+
+.discuss {
+  width: 60%;
+  display: block;
+  margin: auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.voicecontrol {
+    position: fixed;
+    bottom: 5vh;
+    right: 5vh;
+    height: 50px;
+    width: 50px;
+    font-size: 32px;
+}
