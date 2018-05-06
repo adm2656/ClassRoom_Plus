@@ -45,6 +45,7 @@ const getCourseAction = () => {
         if (category === "user") {
             getUserCourseRoute()
                 .then((course) => {
+                    console.log(course);
                     if (course.status) {
                         dispatch(getCourseSuccess(category, course));
                     }
@@ -52,7 +53,8 @@ const getCourseAction = () => {
                         dispatch(getCourseFailed(category, course));
                     }
                 })
-                .catch((error) => {                 
+                .catch((error) => {
+                    console.log(error);
                     if (error.message === "token expired") {
                         dispatch(tokenExpired());
                     }

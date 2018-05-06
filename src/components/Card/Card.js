@@ -21,8 +21,9 @@ class classCard extends Component {
     this.props.dispatch(getCourseAction());
   }
 
-  clickDocs(courseId){
-    console.log(courseId);
+  clickDocs(courseId) {
+    //console.log(courseId);
+    this.props.dispatch(currentCourseId(courseId));
   }
 
   render() {
@@ -46,7 +47,7 @@ class classCard extends Component {
                     cover={<img alt="book" src="https://image.flaticon.com/icons/svg/201/201614.svg" style={imgstyle} />}
                     actions={[
                       <Link to="/docs">
-                        <Icon type="copy" style={{ fontSize: 32 }} onClick={this.clickDocs(item.id)}/>DOCS
+                        <Icon type="copy" style={{ fontSize: 32 }} />DOCS
                       </Link>
                     ]}
                   >
