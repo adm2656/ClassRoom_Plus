@@ -54,6 +54,10 @@ class App extends Component {
     );
   };
 
+  handleClickforVoiceCommand = () => {
+    console.log("VoiceCommandtest");
+  };
+
   render() {
     return (
       <Router history={history}>
@@ -90,14 +94,20 @@ class App extends Component {
             <PrivateRoute path="/docs" component={DocsPage} />
             <PrivateRoute path="/calendar" component={CalendarPage} />
             <PrivateRoute path="/discuss" component={DiscussPage} />
-            <Popover placement="leftBottom" content="歡迎使用" title="Voice Command">
-              <Button
-                type="primary"
-                shape="circle"
-                icon="customer-service"
-                className="voicecontrol"
-              />
-            </Popover>
+            <a onClick={this.handleClickforVoiceCommand}>
+              <Popover
+                placement="leftBottom"
+                content="歡迎使用"
+                title="Voice Command"
+              >
+                <Button
+                  type="primary"
+                  shape="circle"
+                  icon="customer-service"
+                  className="voicecommand"
+                />
+              </Popover>
+            </a>
           </Content>
           <Footer>
             Copyright <Icon type="copyright" /> Classroom+. All Right Reserved.
