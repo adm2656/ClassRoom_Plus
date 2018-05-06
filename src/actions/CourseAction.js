@@ -45,7 +45,7 @@ const getCourseAction = () => {
         if (category === "user") {
             getUserCourseRoute()
                 .then((course) => {
-                    console.log(course);
+                    //console.log(course);
                     if (course.status) {
                         dispatch(getCourseSuccess(category, course));
                     }

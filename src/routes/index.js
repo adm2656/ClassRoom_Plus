@@ -90,7 +90,7 @@ export const getUserCourseRoute = async () => {
     }
 }
 
-export const getCourseDocsRoute = async (courseId) => {
+export const getDocsRoute = async (courseId) => {
     let user = JSON.parse(localStorage.getItem("user"));
     let auth = "Bearer " + user.user.token;
     let reqOption = {
@@ -115,7 +115,7 @@ export const getCourseDocsRoute = async (courseId) => {
     }
 }
 
-export const courseDocsSearchRoute = async (courseId, string) => {
+export const docsSearchRoute = async (courseId, string) => {
     let user = JSON.parse(localStorage.getItem("user"));
     let auth = "Bearer " + user.user.token;
     let reqOption = {

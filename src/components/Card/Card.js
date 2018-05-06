@@ -8,11 +8,11 @@ import { getCourseAction, currentCourseId } from "../../actions/CourseAction";
 const { Meta } = Card;
 
 const imgstyle = {
-  display: 'block',
-  margin: '10px 7px 0px 13px',
-  width: '90%',
-  height: '90%',
-  backgroundColor: 'white',
+  display: "block",
+  margin: "10px 7px 0px 13px",
+  width: "90%",
+  height: "90%",
+  backgroundColor: "white"
 };
 
 class classCard extends Component {
@@ -47,7 +47,10 @@ class classCard extends Component {
                     cover={<img alt="book" src="https://image.flaticon.com/icons/svg/201/201614.svg" style={imgstyle} />}
                     actions={[
                       <Link to="/docs">
-                        <Icon type="copy" style={{ fontSize: 32 }} />DOCS
+                        <Icon type="book" style={{ fontSize: 32 }} />Docs
+                      </Link>,
+                      <Link to="/discuss">
+                        <Icon type="team" style={{ fontSize: 32 }} />Discuss
                       </Link>
                     ]}
                   >

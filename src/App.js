@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Icon, notification } from "antd";
+import { Layout, Menu, Icon, notification, Button, Popover } from "antd";
 import { Router, Route, NavLink } from "react-router-dom";
 import "./App.css";
 import PrivateRoute from "./components/PrivateRouter";
@@ -8,6 +8,7 @@ import DocsPage from "./components/DocsPage";
 import CalendarPage from "./components/CalendarPage";
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
+import DiscussPage from "./components/DiscussPage";
 import history from "./helpers/history";
 
 import { connect } from "react-redux";
@@ -87,6 +88,15 @@ class App extends Component {
             <PrivateRoute path="/index" component={HomePage} />
             <PrivateRoute path="/docs" component={DocsPage} />
             <PrivateRoute path="/calendar" component={CalendarPage} />
+            <PrivateRoute path="/discuss" component={DiscussPage} />
+            <Popover placement="leftBottom" content="歡迎使用" title="Voice Command">
+              <Button
+                type="primary"
+                shape="circle"
+                icon="customer-service"
+                className="voicecontrol"
+              />
+            </Popover>
           </Content>
           <Footer>
             Copyright <Icon type="copyright" /> Classroom+. All Right Reserved.
