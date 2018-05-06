@@ -4,3 +4,10 @@ export const clickMenu=(page)=>{
 		current:page
 	}
 }
+
+export const clickLogout=()=>{
+	localStorage.removeItem("user");
+	return {
+		type:"CLICK_LOGOUT"
+	}
+}

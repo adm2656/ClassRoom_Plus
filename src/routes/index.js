@@ -43,3 +43,7 @@ export const signupRoute = async (user) =>{
         return await Promise.reject(error);
     }
 }
+
+export const getClassesRoute = () => {
+
+}

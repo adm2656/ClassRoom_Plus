@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Icon } from "antd";
+import { Layout, Menu, Icon, notification, Button, Popover } from "antd";
 import { Router, Route, NavLink } from "react-router-dom";
 import "./App.css";
 import PrivateRoute from "./components/PrivateRouter";
@@ -8,34 +8,51 @@ import DocsPage from "./components/DocsPage";
 import CalendarPage from "./components/CalendarPage";
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
+import DiscussPage from "./components/DiscussPage";
 import history from "./helpers/history";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { clickMenu } from "./actions/MenuActions.js";
+import { clickMenu, clickLogout } from "./actions/MenuActions.js";
 
 const { Header, Footer, Content } = Layout;
 
-class App extends Component {
+const logoutNotification = () => {
+  notification.success({
+    message: "Logout Success",
+    description: "See you next time."
+  });
+};
 
+class App extends Component {
   static propTypes = {
     current: PropTypes.string.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);
 
     this.state = {
       current: ""
-    }
+    };
   }
 
-
-  handleClick = (e) => {
+  handleClick = e => {
     const { dispatch } = this.props;
-    dispatch(clickMenu(e.key));
-  }
-
+    this.setState(
+      {
+        current: e.key
+      },
+      () => {
+        if (this.state.current !== "logout") {
+          dispatch(clickMenu(this.state.current));
+        } else {
+          dispatch(clickLogout());
+          logoutNotification();
+        }
+      }
+    );
+  };
 
   render() {
     return (
@@ -72,6 +89,15 @@ class App extends Component {
             <PrivateRoute path="/index" component={HomePage} />
             <PrivateRoute path="/docs" component={DocsPage} />
             <PrivateRoute path="/calendar" component={CalendarPage} />
+            <PrivateRoute path="/discuss" component={DiscussPage} />
+            <Popover placement="leftBottom" content="歡迎使用" title="Voice Command">
+              <Button
+                type="primary"
+                shape="circle"
+                icon="customer-service"
+                className="voicecontrol"
+              />
+            </Popover>
           </Content>
           <Footer>
             Copyright <Icon type="copyright" /> Classroom+. All Right Reserved.
@@ -82,15 +108,15 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { Authenticatation } = state;
   const { Menu } = state;
 
   return {
     Authenticatation,
     Menu
-  }
-}
+  };
+};
 
 App = connect(mapStateToProps)(App);
 

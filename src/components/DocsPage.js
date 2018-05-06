@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { List, Avatar } from "antd";
+import { List, Avatar, Input, Row, Col } from "antd";
+
+const Search = Input.Search;
 
 const data = [
   {
@@ -25,7 +27,18 @@ class DocsPage extends Component {
     return (
       <div class="file">
         <List
-          header={<div>Docs</div>}
+          header={
+            <Row>
+              <Col span={6} offset={17}>
+                <Search
+                  placeholder="Keyword"
+                  onSearch={value => console.log(value)}
+                  style={{ width: 200, marginLeft: 0 }}
+                  enterButton
+                />
+              </Col>
+            </Row>
+          }
           bordered
           itemLayout="horizontal"
           dataSource={data}
