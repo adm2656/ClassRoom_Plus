@@ -36,6 +36,10 @@ const imgstyle = {
 };
 
 class classCard extends Component {
+  handleClick = () => {
+    console.log("test");
+  };
+
   render() {
     return (
       <div style={{ padding: "30px" }}>
@@ -54,12 +58,16 @@ class classCard extends Component {
                   />
                 }
                 actions={[
-                  <Link to="/docs">
-                    <Icon type="book" style={{ fontSize: 32 }} />Docs
-                  </Link>,
+                  <a onClick={this.handleClick}>
+                    <Link to="/docs">
+                      <Icon type="book" style={{ fontSize: 32 }} />Docs
+                    </Link>
+                  </a>,
+                  <a onClick={this.handleClick}>
                   <Link to="/discuss">
                     <Icon type="team" style={{ fontSize: 32 }} />Discuss
                   </Link>
+                  </a>
                 ]}
               >
                 <Meta title={item.title} description={item.info} />
