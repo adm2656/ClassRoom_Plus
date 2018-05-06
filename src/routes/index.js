@@ -78,9 +78,64 @@ export const getUserCourseRoute = async () => {
 
     try {
         let response = await fetch(URLi, reqOption);
+        if(await response.status===401 || await response.status===403){
+            return await Promise.reject(new Error("token expired"));
+        }
+        else{
+            return await response.json();
+        }
+    }
+    catch (err) {
+        return await Promise.reject(err);
+    }
+}
+
+export const getCourseDocsRoute = async (courseId) => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    let auth = "Bearer " + user.user.token;
+    let reqOption = {
+        method: "",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": auth
+        },
+        body: JSON.stringify({
+
+        })
+    }
+
+    let URLi = URL + "";
+
+    try {
+        let response = await fetch(URLi, reqOption);
         return await response.json();
     }
     catch (err) {
         return await Promise.reject(err);
     }
-} 
+}
+
+export const courseDocsSearchRoute = async (courseId, string) => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    let auth = "Bearer " + user.user.token;
+    let reqOption = {
+        method: "",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": auth
+        },
+        body: JSON.stringify({
+
+        })
+    }
+
+    let URLi = URL + "";
+
+    try {
+        let response = await fetch(URLi, reqOption);
+        return await response.json();
+    }
+    catch (err) {
+        return await Promise.reject(err);
+    }
+}

@@ -20,6 +20,11 @@ const Course = (state = {}, action) => {
                 error: action.payload.error
             }
         }
+        case "CURRENT_COURSE_ID":{
+            return {
+                currentCourseId:action.payload.course_id
+            }
+        }
         default: {
             return state;
         }

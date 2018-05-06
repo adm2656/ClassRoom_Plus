@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Icon } from "antd";
+import { Layout, Menu, Icon, notification } from "antd";
 import { Router, Route, NavLink } from "react-router-dom";
 import "./App.css";
 import PrivateRoute from "./components/PrivateRouter";
@@ -29,17 +29,26 @@ class App extends Component {
     }
   }
 
+  logoutNotification = () => {
+    notification.success({
+      message: "Logout Success",
+      description: "See you next time."
+    });
+  };
 
-  handleClick = (e) => {
+  handleClick = e => {
     const { dispatch } = this.props;
 
-    this.setState({
-      current: e.key
-    }, () => {
-      if (this.state.current === "logout") {
-        dispatch(logoutAction());
+    this.setState(
+      {
+        current: e.key
+      }, () => {
+        if (this.state.current === "logout") {
+          dispatch(logoutAction());
+          this.logoutNotification();
+        }
       }
-    });
+    );
   }
 
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Icon, Input, Button } from "antd";
+import { Form, Icon, Input, Button, notification } from "antd";
 import { Link } from "react-router-dom";
 import { loginAction } from "../../actions/UserActions";
 import { connect } from "react-redux";
@@ -9,6 +9,7 @@ const FormItem = Form.Item;
 class NormalLoginForm extends Component {
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			user: {
 				username: "",
@@ -18,29 +19,33 @@ class NormalLoginForm extends Component {
 		};
 	}
 
-	handleSubmit = (e) => {
+	handleSubmit = e => {
 		e.preventDefault();
 		const userName = this.props.form.getFieldValue("username");
 		const passWord = this.props.form.getFieldValue("password");
 
-		this.setState({
-			user: {
-				username: userName,
-				password: passWord
+		this.setState(
+			{
+				user: {
+					username: userName,
+					password: passWord
+				},
+				submitted: true
 			},
-			submitted: true
-		}, () => {
-			this.props.form.validateFields((err, values) => {
-				if (!err) {
-					if (this.state.submitted) {
-						const { dispatch } = this.props;
-						dispatch(loginAction(this.state.user.username, this.state.user.password));
+			() => {
+				this.props.form.validateFields((err, values) => {
+					if (!err) {
+						if (this.state.submitted) {
+							const { dispatch } = this.props;
+							dispatch(
+								loginAction(this.state.user.username, this.state.user.password)
+							);
+						}
 					}
-				}
-			});
-		});
+				});
+			}
+		);
 	};
-
 
 	render() {
 		const { getFieldDecorator } = this.props.form;
@@ -82,10 +87,34 @@ class NormalLoginForm extends Component {
 	}
 }
 
+const successNotification = () => {
+	notification.success({
+		message: "Welcome Back",
+		description: "Feel good to see you again."
+	});
+};
+
+const errorNotification = (message) => {
+	notification.error({
+		message: "Error",
+		description: message
+	});
+}
+
 const mapStateToProps = (state) => {
-	const { isAuthenticated } = state;
+	const { Authentication } = state;
+
+	if (state.Authentication.isAuthenticated) {
+		successNotification();
+		//console.log("a");
+	}
+	else if (state.Authentication.isloading === undefined && state.Authentication.errors) {
+		errorNotification(state.Authentication.errors.msg);
+		//console.log("b");
+	}
+
 	return {
-		isAuthenticated
+		Authentication
 	}
 }
 

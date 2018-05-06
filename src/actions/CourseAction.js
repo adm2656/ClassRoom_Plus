@@ -1,4 +1,5 @@
 import { getAllCourseRoute, getUserCourseRoute } from "../routes";
+import { tokenExpired } from "./UserActions";
 
 const getCourseRequest = (category) => {
     return {
@@ -51,8 +52,13 @@ const getCourseAction = () => {
                         dispatch(getCourseFailed(category, course));
                     }
                 })
-                .catch((error) => {
-                    dispatch(getCourseFailed(category, error));
+                .catch((error) => {                 
+                    if (error.message === "token expired") {
+                        dispatch(tokenExpired());
+                    }
+                    else{
+                        dispatch(getCourseFailed(category, error));
+                    }                 
                 });
         }
         else {
@@ -67,4 +73,13 @@ const getCourseAction = () => {
     }
 }
 
-export { getCourseAction };
+const currentCourseId = (id) => {
+    return {
+        type: "CURRENT_COURSE_ID",
+        payload: {
+            course_id: id
+        }
+    }
+}
+
+export { getCourseAction, currentCourseId };

@@ -119,8 +119,14 @@ const logoutAction = () => {
 }
 
 const tokenExpired = () => {
+    //401: out of date
+    //403: no token
+    localStorage.removeItem("user");
+    return {
+        type:"TOKEN_EXPIRED"
+    }
 
 }
 
 /*----------------------------------------------*/
-export { loginAction, signupAction, logoutAction };
+export { loginAction, signupAction, logoutAction, tokenExpired };

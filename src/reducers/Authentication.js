@@ -7,8 +7,8 @@ const Authentication = (state = initialState, action) => {
             return {
                 user: {
                     username: action.payload.username,
-                    loading:true
                 },
+                loading:true,
                 isAuthenticated: false
             }
         }
@@ -35,6 +35,14 @@ const Authentication = (state = initialState, action) => {
                     username: ""
                 },
                 isAuthenticated: false
+            }
+        }
+        case "TOKEN_EXPIRED":{
+            return {
+                user:{
+                    username:""
+                },
+                isAuthenticated:false
             }
         }
         default: {

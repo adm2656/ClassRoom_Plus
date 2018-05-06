@@ -3,7 +3,7 @@ import { List, Card, Icon } from "antd";
 import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { getCourseAction } from "../../actions/CourseAction";
+import { getCourseAction, currentCourseId } from "../../actions/CourseAction";
 
 const { Meta } = Card;
 
@@ -21,14 +21,19 @@ class classCard extends Component {
     this.props.dispatch(getCourseAction());
   }
 
+  clickDocs(courseId){
+    console.log(courseId);
+  }
+
   render() {
-    let result=<div>asd</div>;
+    let result = <div>asd</div>;
 
     try {
+      //console.log(this.props);
       if (this.props.courses.data.length > 0) {
 
         console.log("get");
-        
+
         result =
           <div style={{ padding: "30px" }}>
             <List
@@ -41,7 +46,7 @@ class classCard extends Component {
                     cover={<img alt="book" src="https://image.flaticon.com/icons/svg/201/201614.svg" style={imgstyle} />}
                     actions={[
                       <Link to="/docs">
-                        <Icon type="copy" style={{ fontSize: 32 }} />DOCS
+                        <Icon type="copy" style={{ fontSize: 32 }} onClick={this.clickDocs(item.id)}/>DOCS
                       </Link>
                     ]}
                   >
@@ -70,8 +75,10 @@ class classCard extends Component {
 
 const mapStateToProps = (state) => {
   let { courses } = state.Course;
+  let { currentCourseId } = state.Course;
   return {
-    courses
+    courses,
+    currentCourseId
   }
 }
 
