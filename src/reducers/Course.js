@@ -22,7 +22,7 @@ const Course = (state = {}, action) => {
         }
         case "CURRENT_COURSE_ID":{
             return {
-                currentCourseId:action.payload.course_id
+                ...action.payload
             }
         }
         default: {

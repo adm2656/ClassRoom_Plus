@@ -21,18 +21,15 @@ class classCard extends Component {
     this.props.dispatch(getCourseAction());
   }
 
-  clickDocs(courseId) {
-    //console.log(courseId);
+  handleClick = (courseId) => {
     this.props.dispatch(currentCourseId(courseId));
-  }
+  };
 
   render() {
     let result = <div>asd</div>;
 
     try {
-      //console.log(this.props);
       if (this.props.courses.data.length > 0) {
-
         console.log("get");
 
         result =
@@ -40,29 +37,36 @@ class classCard extends Component {
             <List
               grid={{ gutter: 32, column: 4 }}
               dataSource={this.props.courses.data}
-              renderItem={(item) => (
+              renderItem={item => (
                 <List.Item>
                   <Card
                     hoverable
-                    cover={<img alt="book" src="https://image.flaticon.com/icons/svg/201/201614.svg" style={imgstyle} />}
+                    cover={
+                      <img
+                        alt="book"
+                        src="https://image.flaticon.com/icons/svg/201/201614.svg"
+                        style={imgstyle}
+                      />
+                    }
                     actions={[
-                      <Link to="/docs">
-                        <Icon type="book" style={{ fontSize: 32 }} />Docs
-                      </Link>,
-                      <Link to="/discuss">
-                        <Icon type="team" style={{ fontSize: 32 }} />Discuss
-                      </Link>
+                      <a onClick={() => this.handleClick(item.id)} >
+                        <Link to="/docs">
+                          <Icon type="book" style={{ fontSize: 32 }} />Docs
+                    </Link>
+                      </a>,
+                      <a onClick={() => this.handleClick(item.id)}>
+                        <Link to="/discuss">
+                          <Icon type="team" style={{ fontSize: 32 }} />Discuss
+                  </Link>
+                      </a>
                     ]}
                   >
-                    <Meta
-                      title={item.course_name}
-                      description={item.course_info}
-                    />
+                    <Meta title={item.course_name} description={item.course_info} />
                   </Card>
                 </List.Item>
               )}
             />
-          </div>;
+          </div>
       }
       else {
         //no courses
@@ -79,10 +83,11 @@ class classCard extends Component {
 
 const mapStateToProps = (state) => {
   let { courses } = state.Course;
-  let { currentCourseId } = state.Course;
+  let { currentCourse } = state.Course;
+
   return {
     courses,
-    currentCourseId
+    currentCourse
   }
 }
 

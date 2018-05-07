@@ -54,7 +54,6 @@ const getCourseAction = () => {
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
                     if (error.message === "token expired") {
                         dispatch(tokenExpired());
                     }
@@ -79,7 +78,7 @@ const currentCourseId = (id) => {
     return {
         type: "CURRENT_COURSE_ID",
         payload: {
-            course_id: id
+            currentCourse: id
         }
     }
 }

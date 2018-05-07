@@ -78,10 +78,11 @@ export const getUserCourseRoute = async () => {
 
     try {
         let response = await fetch(URLi, reqOption);
-        if(await response.status===401 || await response.status===403){
+        
+        if (await response.status === 401 || await response.status === 403) {
             return await Promise.reject(new Error("token expired"));
         }
-        else{
+        else {
             return await response.json();
         }
     }
@@ -94,21 +95,24 @@ export const getDocsRoute = async (courseId) => {
     let user = JSON.parse(localStorage.getItem("user"));
     let auth = "Bearer " + user.user.token;
     let reqOption = {
-        method: "",
+        method: "GET",
         headers: {
             "Content-Type": "application/json",
             "Authorization": auth
-        },
-        body: JSON.stringify({
-
-        })
+        }
     }
 
-    let URLi = URL + "";
+    let URLi = URL + "/material/courseId/" + courseId;
 
     try {
         let response = await fetch(URLi, reqOption);
-        return await response.json();
+
+        if (await response.status === 401 || await response.status === 403) {
+            return await Promise.reject(new Error("token expired"));
+        }
+        else {
+            return await response.json();
+        }
     }
     catch (err) {
         return await Promise.reject(err);

@@ -1,35 +1,52 @@
 import { getDocsRoute, docsSearchRoute } from "../routes";
 
-const getDocsRequest = () => {
+/*---------------------------------------------*/
+
+const getDocsRequest = (courseId) => {
     return {
         type: "GET_DOCS_REQUEST",
         payload: {
-
+            courseId:courseId
         }
     }
 }
 
-const getDocsFailed = () => {
+const getDocsFailed = (courseId, err) => {
     return {
         type: "GET_DOCS_FAILED",
         payload: {
-
+            courseId:courseId,
+            error:err
         }
     }
 }
 
-const getDocsSuccess = () => {
+const getDocsSuccess = (docs) => {
     return {
         type: "GET_DOCS_SUCCESS",
         payload: {
-
+            docs:{
+                data:docs
+            }
         }
     }
 }
 
-const getDocsAction = (dispatch) => {
+const getDocsAction = (courseId) => {
+    return (dispatch)=>{
+        dispatch(getDocsRequest(courseId));
 
+        getDocsRoute(courseId)
+            .then((docs)=>{
+                dispatch(getDocsSuccess(docs));
+            })
+            .catch((err)=>{
+                dispatch(getDocsFailed(courseId, err));
+            })
+    }
 }
+
+/*-----------------------------------------------*/
 
 const docsSearchRequest = () => {
     return {
@@ -61,5 +78,7 @@ const docsSearchSuccess = () => {
 const docsSearchAction = (dispatch) => {
 
 }
+
+/*-------------------------------------------*/
 
 export { docsSearchAction, getDocsAction };

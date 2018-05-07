@@ -13,6 +13,7 @@ import history from "./helpers/history";
 
 import { connect } from "react-redux";
 import { logoutAction } from "./actions/UserActions";
+import { speechAction } from "./helpers/speech";
 
 const { Header, Footer, Content } = Layout;
 
@@ -20,7 +21,6 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       current: ""
     }
@@ -51,7 +51,6 @@ class App extends Component {
       }
     );
   }
-
 
   render() {
     return (
@@ -95,6 +94,7 @@ class App extends Component {
                 shape="circle"
                 icon="customer-service"
                 className="voicecontrol"
+                onClick={speechAction}
               />
             </Popover>
           </Content>
