@@ -3,7 +3,7 @@ const Registration = (state={}, action) => {
         case "SIGNUP_REQUEST":{
             return {
                 username:action.payload.username,
-                isRegister:true
+                loading:true
             }
         }
         case "SIGNUP_FAILED":{

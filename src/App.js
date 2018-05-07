@@ -11,47 +11,49 @@ import SignupPage from "./components/SignupPage";
 import DiscussPage from "./components/DiscussPage";
 import history from "./helpers/history";
 
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { clickMenu, clickLogout } from "./actions/MenuActions.js";
+import { logoutAction } from "./actions/UserActions";
+import { speechAction } from "./helpers/speech";
 
 const { Header, Footer, Content } = Layout;
 
-const logoutNotification = () => {
-  notification.success({
-    message: "Logout Success",
-    description: "See you next time."
-  });
-};
-
 class App extends Component {
-  static propTypes = {
-    current: PropTypes.string.isRequired
-  };
 
   constructor(props) {
     super(props);
-
     this.state = {
       current: ""
-    };
+    }
+
+    if (localStorage.getItem("user")) {
+      history.push("/index");
+    }
   }
+
+  logoutNotification = () => {
+    notification.success({
+      message: "Logout Success",
+      description: "See you next time."
+    });
+  };
 
   handleClick = e => {
     const { dispatch } = this.props;
+
     this.setState(
       {
         current: e.key
-      },
-      () => {
-        if (this.state.current !== "logout") {
-          dispatch(clickMenu(this.state.current));
-        } else {
-          dispatch(clickLogout());
-          logoutNotification();
+      }, () => {
+        if (this.state.current === "logout") {
+          dispatch(logoutAction());
+          this.logoutNotification();
         }
       }
     );
+  }
+
+  handleClickforVoiceCommand = () => {
+    console.log("VoiceCommandtest");
   };
 
   render() {
@@ -90,14 +92,20 @@ class App extends Component {
             <PrivateRoute path="/docs" component={DocsPage} />
             <PrivateRoute path="/calendar" component={CalendarPage} />
             <PrivateRoute path="/discuss" component={DiscussPage} />
-            <Popover placement="leftBottom" content="歡迎使用" title="Voice Command">
-              <Button
-                type="primary"
-                shape="circle"
-                icon="customer-service"
-                className="voicecontrol"
-              />
-            </Popover>
+            <a onClick={speechAction}>
+              <Popover
+                placement="leftBottom"
+                content="歡迎使用"
+                title="Voice Command"
+              >
+                <Button
+                  type="primary"
+                  shape="circle"
+                  icon="customer-service"
+                  className="voicecommand"
+                />
+              </Popover>
+            </a>
           </Content>
           <Footer>
             Copyright <Icon type="copyright" /> Classroom+. All Right Reserved.
@@ -108,15 +116,12 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  const { Authenticatation } = state;
-  const { Menu } = state;
-
+const mapStateToProps = (state) => {
+  const { Authentication } = state;
   return {
-    Authenticatation,
-    Menu
-  };
-};
+    Authentication
+  }
+}
 
 App = connect(mapStateToProps)(App);
 

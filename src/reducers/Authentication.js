@@ -1,34 +1,43 @@
 const initUser = JSON.parse(localStorage.getItem("user"));
-const initialState = initUser ? {...initUser,isAuthenticated:true} : {user:{username:""},isAuthenticated:false};
+const initialState = initUser ? { ...initUser, isAuthenticated: true } : { user: { username: "" }, isAuthenticated: false };
 
-const Authentication=(state=initialState, action)=>{
-    switch(action.type){
-        case "LOGIN_REQUEST":{
+const Authentication = (state = initialState, action) => {
+    switch (action.type) {
+        case "LOGIN_REQUEST": {
             return {
-                user:{
-                    username:action.payload.username
+                user: {
+                    username: action.payload.username,
                 },
-                isAuthenticated:false
+                loading:true,
+                isAuthenticated: false
             }
         }
-        case "LOGIN_FAILED":{
+        case "LOGIN_FAILED": {
             return {
-                user:{
-                    username:action.payload.username
+                user: {
+                    username: action.payload.username
                 },
-                isAuthenticated:false,
-                errors:action.payload.errors
+                isAuthenticated: false,
+                errors: action.payload.errors
             }
         }
-        case "LOGIN_SUCCESS":{
+        case "LOGIN_SUCCESS": {
             return {
-                user:{
+                user: {
                     ...action.payload
                 },
-                isAuthenticated:true
+                isAuthenticated: true
             }
         }
-        case "CLICK_LOGOUT":{
+        case "LOGOUT_ACTION": {
+            return {
+                user: {
+                    username: ""
+                },
+                isAuthenticated: false
+            }
+        }
+        case "TOKEN_EXPIRED":{
             return {
                 user:{
                     username:""
@@ -36,7 +45,7 @@ const Authentication=(state=initialState, action)=>{
                 isAuthenticated:false
             }
         }
-        default:{
+        default: {
             return state;
         }
     }
