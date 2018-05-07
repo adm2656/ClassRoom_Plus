@@ -1,4 +1,4 @@
-const URL = "http://35.229.133.151:8080/api";
+const URL = "https://35.229.133.151:8080/api";
 
 export const loginRoute = async (username, password) => {
     let reqOption = {
