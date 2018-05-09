@@ -55,13 +55,12 @@ class DocsPage extends Component {
               }
               bordered
               itemLayout="horizontal"
-              dataSource={data}
+              dataSource={this.props.docs.data}
               renderItem={item => (
                 <List.Item>
                   <List.Item.Meta
                     avatar={<Avatar size="large" icon="file" />}
-                    title={<a href="">{item.title}</a>}
-                    description={item.description}
+                    title={<a href="">{item.material_filename}</a>}
                   />
                 </List.Item>
               )}
