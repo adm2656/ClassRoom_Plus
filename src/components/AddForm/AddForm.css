@@ -1,4 +1,4 @@
-.login-form {
+.add-form {
     max-width: 60%;
     padding: 30px 30px 30px 30px;
     background: #fbfbfb;
@@ -6,6 +6,6 @@
     border-radius: 6px;
     margin:0 auto;
   }
-  .login-form-button {
+  .add-form-button {
     width: 100%;
   }
