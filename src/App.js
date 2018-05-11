@@ -9,6 +9,7 @@ import CalendarPage from "./components/CalendarPage";
 import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import DiscussPage from "./components/DiscussPage";
+import AddPage from "./components/AddPage";
 import history from "./helpers/history";
 
 import { connect } from "react-redux";
@@ -18,12 +19,11 @@ import { speechAction } from "./helpers/speech";
 const { Header, Footer, Content } = Layout;
 
 class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       current: ""
-    }
+    };
 
     if (localStorage.getItem("user")) {
       history.push("/index");
@@ -43,14 +43,15 @@ class App extends Component {
     this.setState(
       {
         current: e.key
-      }, () => {
+      },
+      () => {
         if (this.state.current === "logout") {
           dispatch(logoutAction());
           this.logoutNotification();
         }
       }
     );
-  }
+  };
 
   handleClickforVoiceCommand = () => {
     console.log("VoiceCommandtest");
@@ -77,6 +78,11 @@ class App extends Component {
                   <Icon type="calendar" /> Calendar
                 </NavLink>
               </Menu.Item>
+              <Menu.Item key="add">
+                <NavLink to="/add">
+                  <Icon type="plus-circle-o" /> Add
+                </NavLink>
+              </Menu.Item>
               <Menu.Item key="logout">
                 <NavLink to="/">
                   <Icon type="logout" />
@@ -92,6 +98,7 @@ class App extends Component {
             <PrivateRoute path="/docs" component={DocsPage} />
             <PrivateRoute path="/calendar" component={CalendarPage} />
             <PrivateRoute path="/discuss" component={DiscussPage} />
+            <PrivateRoute path="/add" component={AddPage} />
             <a onClick={speechAction}>
               <Popover
                 placement="leftBottom"
@@ -116,12 +123,12 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { Authentication } = state;
   return {
     Authentication
-  }
-}
+  };
+};
 
 App = connect(mapStateToProps)(App);
 
