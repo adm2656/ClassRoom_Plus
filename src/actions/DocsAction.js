@@ -1,4 +1,5 @@
 import { getDocsRoute, docsSearchRoute } from "../routes";
+import history from "../helpers/history";
 
 /*---------------------------------------------*/
 
@@ -6,7 +7,7 @@ const getDocsRequest = (courseId) => {
     return {
         type: "GET_DOCS_REQUEST",
         payload: {
-            courseId:courseId
+            courseId: courseId
         }
     }
 }
@@ -15,8 +16,8 @@ const getDocsFailed = (courseId, err) => {
     return {
         type: "GET_DOCS_FAILED",
         payload: {
-            courseId:courseId,
-            error:err
+            courseId: courseId,
+            error: err
         }
     }
 }
@@ -25,22 +26,22 @@ const getDocsSuccess = (docs) => {
     return {
         type: "GET_DOCS_SUCCESS",
         payload: {
-            docs:{
-                data:docs
+            docs: {
+                data: docs
             }
         }
     }
 }
 
 const getDocsAction = (courseId) => {
-    return (dispatch)=>{
+    return (dispatch) => {
         dispatch(getDocsRequest(courseId));
 
         getDocsRoute(courseId)
-            .then((docs)=>{
+            .then((docs) => {
                 dispatch(getDocsSuccess(docs));
             })
-            .catch((err)=>{
+            .catch((err) => {
                 dispatch(getDocsFailed(courseId, err));
             })
     }
@@ -48,35 +49,48 @@ const getDocsAction = (courseId) => {
 
 /*-----------------------------------------------*/
 
-const docsSearchRequest = () => {
+const docsSearchRequest = (value) => {
     return {
         type: "DOCS_SEARCH_REQUEST",
         payload: {
-
+            keyword: value
         }
     }
 }
 
-const docsSearchFailed = () => {
+const docsSearchFailed = (value, err) => {
     return {
         type: "DOCS_SEARCH_FAILED",
         payload: {
-
+            keyword: value,
+            errors: err
         }
     }
 }
 
-const docsSearchSuccess = () => {
+const docsSearchSuccess = (value, result) => {
     return {
         type: "DOCS_SEARCH_SUCCESS",
         payload: {
-
+            keyword: value,
+            result: result
         }
     }
 }
 
-const docsSearchAction = (dispatch) => {
+const docsSearchAction = (courseId, value) => {
 
+    return (dispatch) => {
+        dispatch(docsSearchRequest(value));
+
+        docsSearchRoute(courseId, value)
+            .then((result) => {
+                dispatch(docsSearchSuccess(value, result));
+            })
+            .catch((err) => {
+                dispatch(docsSearchFailed(value, err));
+            })
+    }
 }
 
 /*-------------------------------------------*/
