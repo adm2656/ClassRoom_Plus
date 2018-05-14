@@ -106,7 +106,7 @@ class App extends Component {
                 title="Voice Command"
               >
                 <Button
-                  type="primary"
+                  type="danger"
                   shape="circle"
                   icon="customer-service"
                   className="voicecommand"

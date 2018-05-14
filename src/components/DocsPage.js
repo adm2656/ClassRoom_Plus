@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { List, Avatar, Input, Row, Col } from "antd";
+import { List, Avatar, Input, Row, Col, notification, Icon } from "antd";
 import { connect } from "react-redux";
-import { getDocsAction } from "../actions/DocsAction";
+import { getDocsAction, docsSearchAction, docsSearchEnd } from "../actions/DocsAction";
 
 const Search = Input.Search;
 
@@ -17,7 +17,14 @@ class DocsPage extends Component {
     try {
       if (this.props.docs.data.length > 0) {
         console.log("get");
-        
+
+        if (this.props.Search.keyword !== undefined) {
+          for (let i = 0; i < this.props.Search.result.pages.length; i++) {
+            successNotification(this.props.Search.result.pages[i].filename, "page: " + this.props.Search.result.pages[i].page);
+          }
+          this.props.dispatch(docsSearchEnd());
+        }
+
         result =
           <div class="file">
             <List
@@ -26,7 +33,7 @@ class DocsPage extends Component {
                   <Col span={6} offset={17}>
                     <Search
                       placeholder="Keyword"
-                      onSearch={value => console.log(value)}
+                      onSearch={value => this.props.dispatch(docsSearchAction(this.props.currentCourse, value))}
                       style={{ width: 200, marginLeft: 0 }}
                       enterButton
                     />
@@ -45,7 +52,7 @@ class DocsPage extends Component {
                 </List.Item>
               )}
             />
-          </div>
+          </div>;
       }
       else {
         //no docs
@@ -54,7 +61,6 @@ class DocsPage extends Component {
     }
     catch (e) {
       console.log("connecting");
-
     }
 
 
@@ -62,13 +68,23 @@ class DocsPage extends Component {
   }
 }
 
+const successNotification = (mes, des) => {
+  notification.success({
+    message: mes,
+    description: des,
+    icon: <Icon type="tags" />,
+    placement: 'bottomRight',
+  });
+};
+
 const mapStateTopProps = (state) => {
   let { currentCourse } = state.Course;
-  //console.log(state);
   let { docs } = state.Docs;
+  let { Search } = state;
   return {
     currentCourse,
-    docs
+    docs,
+    Search
   }
 }
 
