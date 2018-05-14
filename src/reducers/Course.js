@@ -25,6 +25,21 @@ const Course = (state = {}, action) => {
                 ...action.payload
             }
         }
+        case "ADD_COURSE_REQUEST":{
+            return {
+                ...action.payload
+            }
+        }
+        case "ADD_COURSE_SUCCESS":{
+            return {
+                ...action.payload
+            }
+        }
+        case "ADD_COURSE_FAILED":{
+            return {
+                ...action.payload
+            }
+        }
         default: {
             return state;
         }

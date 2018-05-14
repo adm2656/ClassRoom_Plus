@@ -1,4 +1,5 @@
-const URL = "http://35.229.133.151:8080/api";
+//const URL = "http://35.229.133.151:8080/api";
+const URL = "https://www.classrooomplus.com/api";
 
 export const loginRoute = async (username, password) => {
     let reqOption = {
@@ -78,7 +79,7 @@ export const getUserCourseRoute = async () => {
 
     try {
         let response = await fetch(URLi, reqOption);
-        
+
         if (await response.status === 401 || await response.status === 403) {
             return await Promise.reject(new Error("token expired"));
         }
@@ -119,7 +120,8 @@ export const getDocsRoute = async (courseId) => {
     }
 }
 
-export const docsSearchRoute = async (courseId, string) => {
+/*--------------------------------*/
+export const speechRoute = async (string) => {
     let user = JSON.parse(localStorage.getItem("user"));
     let auth = "Bearer " + user.user.token;
     let reqOption = {
@@ -137,6 +139,61 @@ export const docsSearchRoute = async (courseId, string) => {
 
     try {
         let response = await fetch(URLi, reqOption);
+        console.log(await response);
+        return await response.json();
+    }
+    catch (err) {
+        return await Promise.reject(err);
+    }
+}
+
+export const addCourseRoute = async (type, name, info) => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    let auth = "Bearer " + user.user.token;
+    let reqOption = {
+        method: "POST",
+        headers: {
+            "Content-Type": /*"multipart/form-data"*/"Application/json",
+            "Authorization": auth
+        },
+        body: JSON.stringify({
+            courseType: type,
+            courseName: name,
+            courseInfo: {
+                info: info
+            }
+        })
+    }
+
+    let URLi = URL + "/course";
+
+    try {
+        let response = await fetch(URLi, reqOption);
+        return await response.json();
+    }
+    catch (err) {
+        return await Promise.reject(err);
+    }
+}
+
+export const docSearchRoute = async (courseId, string) => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    let auth = "Bearer " + user.user.token;
+    let reqOption = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": auth
+        },
+        body: JSON.stringify({
+            keyword:string
+        })
+    }
+
+    let URLi = URL + "/search/courseId/" + courseId;
+
+    try {
+        let response = await fetch(URLi, reqOption)
         return await response.json();
     }
     catch (err) {

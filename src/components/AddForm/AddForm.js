@@ -3,6 +3,8 @@ import { Form, Icon, Input, Button, notification, Upload } from "antd";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
+import { addCourseAction } from "../../actions/CourseAction";
+
 const FormItem = Form.Item;
 
 class NormalAddForm extends Component {
@@ -24,7 +26,6 @@ class NormalAddForm extends Component {
     e.preventDefault();
     const classType = this.props.form.getFieldValue("type");
     const className = this.props.form.getFieldValue("name");
-    const classBanner = this.props.form.getValueFromEvent(this.normFile);
     const classinfo = this.props.form.getFieldValue("info");
 
     this.setState(
@@ -41,7 +42,7 @@ class NormalAddForm extends Component {
           if (!err) {
             if (this.state.submitted) {
               const { dispatch } = this.props;
-              dispatch();
+              //dispatch(addCourseAction(this.state.class.type, this.state.class.name, this.state.class.info));
             }
           }
         });
@@ -75,18 +76,6 @@ class NormalAddForm extends Component {
             rules: [{ required: true, message: "Please input the class name!" }]
           })(<Input placeholder="Name of class" />)}
         </FormItem>
-        <FormItem {...formItemLayout} label="Upload">
-          {getFieldDecorator("upload", {
-            valuePropName: "banner",
-            getValueFromEvent: this.normFile
-          })(
-            <Upload name="logo" action="/upload.do" listType="picture">
-              <Button>
-                <Icon type="upload" /> Click to upload
-              </Button>
-            </Upload>
-          )}
-        </FormItem>
         <FormItem>
           {getFieldDecorator("info", {
             rules: [{ required: true, message: "Please input the info!" }]
@@ -116,6 +105,7 @@ const errorNotification = message => {
   });
 };
 
+/*
 const mapStateToProps = state => {
   const { Authentication } = state;
 
@@ -123,7 +113,8 @@ const mapStateToProps = state => {
     Authentication
   };
 };
+*/
 
-const AddForm = connect(mapStateToProps)(Form.create()(NormalAddForm));
+const AddForm = connect(/*mapStateToProps*/)(Form.create()(NormalAddForm));
 
 export default AddForm;
