@@ -23,7 +23,8 @@ class DocsPage extends Component {
           for (let i = 0; i < this.props.Search.result.pages.length; i++) {
             successNotification(
               this.props.Search.result.pages[i].filename,
-              this.props.Search.result.pages[i].page
+              this.props.Search.result.pages[i].page,
+              this.props.currentCourse
             );
           }
           this.props.dispatch(docsSearchEnd());
@@ -78,11 +79,12 @@ class DocsPage extends Component {
   }
 }
 
-const successNotification = (mes, des) => {
+const successNotification = (mes, des, courseId) => {
+  const name = encodeURI("https://www.classrooomplus.com/api/course/" + courseId + "/" + mes + ".pdf#page=" + des)
   notification.success({
     message: mes,
     description: "Pages: " + des,
-    icon: <Icon type="tags" />,
+    icon: <a href = {name}><Icon type="tags" /></a>,
     placement: "bottomRight"
   });
 };
