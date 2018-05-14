@@ -1,4 +1,4 @@
-import { getAllCourseRoute, getUserCourseRoute } from "../routes";
+import { getAllCourseRoute, getUserCourseRoute, addCourseRoute } from "../routes";
 import { tokenExpired } from "./UserActions";
 
 const getCourseRequest = (category) => {
@@ -15,9 +15,7 @@ const getCourseSuccess = (category, course) => {
         type: "GET_COURSE_SUCCESS",
         payload: {
             category: category,
-            courses: {
-                ...course
-            }
+            courses: course
         }
     }
 }
@@ -45,7 +43,6 @@ const getCourseAction = () => {
         if (category === "user") {
             getUserCourseRoute()
                 .then((course) => {
-                    //console.log(course);
                     if (course.status) {
                         dispatch(getCourseSuccess(category, course));
                     }
@@ -57,9 +54,9 @@ const getCourseAction = () => {
                     if (error.message === "token expired") {
                         dispatch(tokenExpired());
                     }
-                    else{
+                    else {
                         dispatch(getCourseFailed(category, error));
-                    }                 
+                    }
                 });
         }
         else {
@@ -74,6 +71,8 @@ const getCourseAction = () => {
     }
 }
 
+/*----------------------------*/
+
 const currentCourseId = (id) => {
     return {
         type: "CURRENT_COURSE_ID",
@@ -83,4 +82,50 @@ const currentCourseId = (id) => {
     }
 }
 
-export { getCourseAction, currentCourseId };
+/*--------------------------*/
+
+const addCourseAction = (type, name, info) => {
+    return (dispatch) => {
+        dispatch(addCourseRequest(name));
+
+        addCourseRoute(type, name, info)
+            .then((newCourse) => {
+                console.log(newCourse);
+                dispatch(addCourseSuccess(name));
+            })
+            .catch((err) => {
+                console.log(err);
+                dispatch(addCourseFailed(name, err));
+            })
+    }
+}
+
+const addCourseRequest = (courseName) => {
+    return {
+        type: "ADD_COURSE_REQUEST",
+        payload: {
+            courseName: courseName
+        }
+    }
+}
+
+const addCourseSuccess = (courseName) => {
+    return {
+        type: "ADD_COURSE_SUCCESS",
+        payload: {
+            courseName: courseName
+        }
+    }
+}
+
+const addCourseFailed = (courseName, err) => {
+    return {
+        type: "ADD_COURSE_FAILED",
+        payload: {
+            courseName: courseName,
+            errors: err
+        }
+    }
+}
+
+export { getCourseAction, currentCourseId, addCourseAction };
