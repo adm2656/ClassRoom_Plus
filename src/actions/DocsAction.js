@@ -1,5 +1,4 @@
 import { getDocsRoute, docsSearchRoute } from "../routes";
-import history from "../helpers/history";
 
 /*---------------------------------------------*/
 
@@ -93,6 +92,15 @@ const docsSearchAction = (courseId, value) => {
     }
 }
 
+const docsSearchEnd = () => {
+    return {
+        type: "DOCS_SEARCH_END",
+        payload: {
+
+        }
+    }
+}
+
 /*-------------------------------------------*/
 
-export { docsSearchAction, getDocsAction };
+export { docsSearchAction, getDocsAction, docsSearchEnd };

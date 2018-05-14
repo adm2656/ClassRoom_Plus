@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { List, Avatar, Input, Row, Col, notification } from "antd";
 import { connect } from "react-redux";
-import { getDocsAction, docsSearchAction } from "../actions/DocsAction";
+import { getDocsAction, docsSearchAction, docsSearchEnd } from "../actions/DocsAction";
 
 const Search = Input.Search;
 
@@ -18,11 +18,11 @@ class DocsPage extends Component {
       if (this.props.docs.data.length > 0) {
         console.log("get");
 
-        console.log(this.props);
         if (this.props.Search.keyword !== undefined) {
           for (let i = 0; i < this.props.Search.result.pages.length; i++) {
             successNotification(this.props.Search.result.pages[i].filename, "page: " + this.props.Search.result.pages[i].page);
           }
+          this.props.dispatch(docsSearchEnd());
         }
 
         result =
