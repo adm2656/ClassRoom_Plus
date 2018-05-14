@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { List, Avatar, Input, Row, Col, notification } from "antd";
+import { List, Avatar, Input, Row, Col, notification, Icon } from "antd";
 import { connect } from "react-redux";
 import { getDocsAction, docsSearchAction } from "../actions/DocsAction";
 
@@ -71,7 +71,9 @@ class DocsPage extends Component {
 const successNotification = (mes, des) => {
   notification.success({
     message: mes,
-    description: des
+    description: des,
+    icon: <Icon type="tags" />,
+    placement: 'bottomRight',
   });
 };
 
