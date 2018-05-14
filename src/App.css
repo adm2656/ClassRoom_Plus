@@ -59,7 +59,7 @@
 
 .voicecommand {
     position: fixed;
-    bottom: 5vh;
+    top: 1vh;
     right: 5vh;
     height: 50px;
     width: 50px;
