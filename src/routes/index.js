@@ -120,7 +120,6 @@ export const getDocsRoute = async (courseId) => {
     }
 }
 
-/*--------------------------------*/
 export const speechRoute = async (string) => {
     let user = JSON.parse(localStorage.getItem("user"));
     let auth = "Bearer " + user.user.token;
@@ -186,11 +185,33 @@ export const docsSearchRoute = async (courseId, string) => {
             "Authorization": auth
         },
         body: JSON.stringify({
-            keyword:string
+            keyword: string
         })
     }
 
     let URLi = URL + "/search/courseId/" + courseId;
+
+    try {
+        let response = await fetch(URLi, reqOption)
+        return await response.json();
+    }
+    catch (err) {
+        return await Promise.reject(err);
+    }
+}
+
+export const getTopicRoute = async (courseId) => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    let auth = "Bearer " + user.user.token;
+    let reqOption = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": auth
+        }
+    }
+
+    let URLi = URL + "/topic/course/" + courseId;
 
     try {
         let response = await fetch(URLi, reqOption)

@@ -79,6 +79,7 @@ const mapStateTopProps = (state) => {
   let { currentCourse } = state.Course;
   let { docs } = state.Docs;
   let { Search } = state;
+  
   return {
     currentCourse,
     docs,

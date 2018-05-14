@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { List } from "antd";
 import ReplyForm from "./ReplyForm/ReplyForm";
+import { getTopicAction } from "../actions/TopicActions";
+import { connect } from "react-redux";
 
 const data = [
   {
@@ -34,29 +36,63 @@ class DiscussPage extends Component {
       reply: ""
     };
   }
+
+  componentDidMount() {
+    this.props.dispatch(getTopicAction(this.props.currentCourse));
+  }
+
   render() {
-    return (
-      <div class="discuss">
-        <List
-          footer={
-            <div class="reply">
-              <ReplyForm />
-            </div>
-          }
-          bordered
-          itemLayout="vertical"
-          size="large"
-          dataSource={data}
-          renderItem={item => (
-            <List.Item key={item.title}>
-              <List.Item.Meta title={item.title} description={item.sender} />
-              {item.content}
-            </List.Item>
-          )}
-        />
-      </div>
-    );
+    let result = <div>123</div>;
+
+    try {
+      if (this.props.Topics.data.topics.topic.length > 0) {
+        console.log("get");
+        console.log(this.props);
+
+        result =
+          <div class="discuss">
+            <List
+              footer={
+                <div class="reply">
+                  <ReplyForm />
+                </div>
+              }
+              bordered
+              itemLayout="vertical"
+              size="large"
+              dataSource={this.props.Topics.data.topics.topic}
+              renderItem={item => (
+                <List.Item key={item.topic_title}>
+                  <List.Item.Meta title={item.topic_title} description={item.topic_type} />
+                  {item.topic_content.topicContent}
+                </List.Item>
+              )}
+            />
+          </div>;
+      }
+      else {
+        console.log("no discussion.");
+      }
+    }
+    catch (e) {
+      console.log("connecting");
+    }
+
+
+    return result;
   }
 }
+
+const mapStateToProps = (state) => {
+  let { currentCourse } = state.Course;
+  let { Topics } = state;
+
+  return {
+    currentCourse,
+    Topics
+  }
+}
+
+DiscussPage = connect(mapStateToProps)(DiscussPage);
 
 export default DiscussPage;
