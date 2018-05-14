@@ -31,7 +31,6 @@ class classCard extends Component {
     try {
       if (this.props.courses.data.length > 0) {
         console.log("get");
-
         result =
           <div style={{ padding: "30px" }}>
             <List
@@ -44,7 +43,7 @@ class classCard extends Component {
                     cover={
                       <img
                         alt="book"
-                        src="https://image.flaticon.com/icons/svg/201/201614.svg"
+                        src=/*"https://image.flaticon.com/icons/svg/201/201614.svg"*/{item.course_banner}
                         style={imgstyle}
                       />
                     }
@@ -61,7 +60,7 @@ class classCard extends Component {
                       </a>
                     ]}
                   >
-                    <Meta title={item.course_name} description={item.course_info} />
+                    <Meta title={item.course_name} description={item.course_info.text} />
                   </Card>
                 </List.Item>
               )}

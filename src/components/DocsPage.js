@@ -5,25 +5,6 @@ import { getDocsAction } from "../actions/DocsAction";
 
 const Search = Input.Search;
 
-const data = [
-  {
-    title: "Docs 1",
-    description: "Docs"
-  },
-  {
-    title: "Docs 2",
-    description: "Docs"
-  },
-  {
-    title: "Docs 3",
-    description: "Docs"
-  },
-  {
-    title: "Docs 4",
-    description: "Docs"
-  }
-];
-
 class DocsPage extends Component {
 
   componentDidMount() {
@@ -31,13 +12,12 @@ class DocsPage extends Component {
   }
 
   render() {
-    console.log(this.props);
-
     let result = <div>123</div>;
 
     try {
       if (this.props.docs.data.length > 0) {
         console.log("get");
+        
         result =
           <div class="file">
             <List
@@ -60,7 +40,7 @@ class DocsPage extends Component {
                 <List.Item>
                   <List.Item.Meta
                     avatar={<Avatar size="large" icon="file" />}
-                    title={<a href="">{item.material_filename}</a>}
+                    title={<a target="_blank" href={item.material_directory} >{item.material_filename}</a>}
                   />
                 </List.Item>
               )}
