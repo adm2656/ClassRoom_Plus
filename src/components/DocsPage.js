@@ -16,8 +16,6 @@ class DocsPage extends Component {
 
     try {
       if (this.props.docs.data.length > 0) {
-        console.log("get");
-
         if (this.props.Search.keyword !== undefined) {
           for (let i = 0; i < this.props.Search.result.pages.length; i++) {
             successNotification(this.props.Search.result.pages[i].filename, "page: " + this.props.Search.result.pages[i].page);
@@ -73,7 +71,7 @@ const successNotification = (mes, des) => {
     message: mes,
     description: des,
     icon: <Icon type="tags" />,
-    placement: 'bottomRight',
+    placement: 'bottomRight'
   });
 };
 
