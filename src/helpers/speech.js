@@ -1,3 +1,5 @@
+import history from "../helpers/history";
+
 let recognize;
 let recognizing = false;
 let ltrans = "";
@@ -41,13 +43,18 @@ if (window.webkitSpeechRecognition) {
 
 
         if (trans.trim().length > 0) {
-            //document.getElementById("result").innerHTML = trans;
             console.log("trans: " + trans);
         }
         if (ltrans.trim().length > 0) {
             console.log("ltrans: " + ltrans);
-            //document.getElementById("lastSent").innerHTML = ltrans;
-            //document.getElementById("postVal").value = ltrans;
+
+            /*----------------temp-----------*/
+            if (ltrans === "行事曆") {
+                history.push("/calendar");
+            }
+            else if (ltrans === "課程") {
+                history.push("/index");
+            }
         }
 
     };

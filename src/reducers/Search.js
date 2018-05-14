@@ -15,6 +15,11 @@ const Search = (state = {}, action) => {
                 ...action.payload
             }
         }
+        case "DOCS_SEARCH_END": {
+            return {
+                ...action.payload
+            }
+        }
         default: {
             return state;
         }
