@@ -2,6 +2,6 @@
 
 ### React.js
 
-- A online studying, teaching platform
+- An online studying, teaching platform
 
 [Preview of this website](./Preview.pdf)
